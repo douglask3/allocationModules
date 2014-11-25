@@ -14,4 +14,7 @@ done
 
 ## Build docs
 
-latex Info.tex
+pdflatex Info.tex
+bibtex Info
+pdflatex Info.tex
+pdflatex Info.tex
