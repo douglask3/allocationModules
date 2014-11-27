@@ -25,6 +25,7 @@ def printNewLine(txt): print("\n"+txt+":\t")
 Parameter values
 ----------------
 As defined by Mcad file
+
 ```python
 from math import pi
 
@@ -98,6 +99,10 @@ zeta=An*nabase/(alpha*Kl*I0)
 printNewLine("zeta when nabase=Nabase. Expect 0.336")
 print zeta
 
+nabase=Nabase
+
+a=1/(1-N0/nabase)
+b=zeta*exp(kl*ltot)
 ```
 
 N balance
