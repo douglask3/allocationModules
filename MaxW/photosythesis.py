@@ -6,34 +6,30 @@ __author__  = "Douglas Kelley"
 __email__   = "douglas.kelley@students.mq.edu.com"
 
 
-
-class Photosythesis(object):
+class photosythesis(object):
 	""" Photosythesis equations used to drive MaxW in McMurtrie et al. (2013).
 	
 	"""
-	def __init__(self,params)
-		self.An=params.An
-		self.N0=params.N0
-		self.Kl=params.Kl
-		self.I0=params.I0
-		self.alpha=params.alpha
-		self.convfactor=params.convfactor
+	def __init__(self,An,N0,Kl,Rleaf,I0,alpha,convfactor):
+		self.An=An
+		self.N0=N0
+		self.Kl=Kl
+		self.Rleaf=Rleaf
+		self.I0=I0
+		self.alpha=alpha
+		self.convfactor=convfactor
 	
 	def Asat(self,na):	
 		return(self.An*(na-self.N0))
 	
-	def lightIncientatCanopy(lai):
-		return(self.KL*self.I0*exp(-self.KL*lai))
+	def I(self,lai):
+		return(self.Kl*self.I0*exp(-self.Kl*lai))
 	
 	def Aa(self,LAI,na):
-		a=(1/Asat(na))+(1/self.alpha*lightIncientatCanopy(lai))
-		a=(1/a)-self.Rleaf*na
+		a=(1.0/self.Asat(na))+(1.0/(self.alpha*self.I(LAI)))
+		a=(1.0/a)-self.Rleaf*na
 		a=a*self.convfactor
-		
-		
-	
-	
-
+		return(a)
 
 """ References
 	==========
