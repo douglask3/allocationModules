@@ -30,7 +30,14 @@ class photosythesis(object):
 		a=(1.0/a)-self.Rleaf*na
 		a=a*self.convfactor
 		return(a)
-
+		
+	def dAdN(self,lai,na):
+		Asat=self.Asat(na)
+		a=(1+Asat/(1+Asat/(self.alpha*self.I(lai))))**2
+		a=self.An/a
+		a=a-self.Rleaf
+		a=a*self.convfactor
+		return(a)
 """ References
 	==========
 		McMurtrie RE, Dewar RC. New insights into carbon allocation by trees
