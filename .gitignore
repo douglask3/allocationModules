@@ -1,3 +1,5 @@
+#Latex generated
+################
 *.DS_store
 *.aux
 *.log
@@ -7,4 +9,11 @@
 *.bbl
 *.blg
 *.lof
+
+
+#python/ipython notebook generated stuff
+########################################
+*.pyc
+*.ipynb
+*.html
 
