@@ -26,14 +26,14 @@ class dimensionless_variables(object):
     def zeta(self, nabase):    
         return(self.An*nabase / (self.alpha * self.Kl * self.I0))
     
-    def ExpKlcrit_denominator(ltot,nabase):
+    def ExpKlcrit_denominator(self,ltot,nabase):
          a = (1.0 - self.N0 / nabase)
          b = self.zeta * exp(self.Kl * ltot)
          return( (b + 1.0 / a)** (0.5) - 1.0 )
     
     def ExpKLcrit0(self, ltot, nabase):
         num = self.zeta * (1.0 - (self.N0 / nabase))
-        return( self.ExpKlcrit0_denominator / num )
+        return( self.ExpKlcrit_denominator / num )
         
     def Lcrit0(self,ltot,nabase):
         return( (1.0 / self.Kl) * log(self.ExpKLcrit0) )
