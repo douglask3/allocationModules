@@ -21,3 +21,5 @@
 rm *.pyc
 notedown example.md > MaxWexample.ipynb
 ipython notebook MaxWexample.ipynb
+#ipython notebook --pylab inline
+#ipython nbconvert --to=html --ExecutePreprocessor.enabled=True MaxWexample.ipynb
