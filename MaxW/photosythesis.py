@@ -1,5 +1,3 @@
-""" Estimate daily Carbon fixed and pass around the aboveground portion of the
-plant. """
 from math import exp
 
 __author__  = "Douglas Kelley"
