@@ -73,7 +73,6 @@ Photosynthesis Equations
 
 ```python
 from photosythesis import photosythesis
-
 ph=photosythesis(An,N0,Kl,Rleaf,I0,alpha,Convfactor)
 
 printNewLine("Asat when na=0.003")
@@ -92,17 +91,38 @@ print ph.dAdN(0.0,0.003)
 Solution derived by Lagrange multiplier method
 ---------------------------------------------
 ```python
-nabase=Nabase
+from dimensionless_variables import dimensionless_variables
+def vars(nabase,ltot): vars=dimensionless_variables(An,alpha,Kl,I0,N0,nabase,ltot)
 
-zeta=An*nabase/(alpha*Kl*I0)
+printNewLine("Dimensionless variables when nabase=Nabase from paramter list and ltot=5")
+var=dimensionless_variables(An,alpha,Kl,I0,N0,nabase=Nabase,ltot=5)
 
-printNewLine("zeta when nabase=Nabase. Expect 0.336")
-print zeta
+printNewLine("Expect 0.336 for zeta")
+print(var.zeta)
 
-nabase=Nabase
+printNewLine("Expect 2.977 for Lcrit0")
+print var.Lcrit0
 
-a=1/(1-N0/nabase)
-b=zeta*exp(kl*ltot)
+printNewLine("Expect 2.977 for Lcrit")
+print var.Lcrit()
+
+printNewLine("Expect 3.597 for ExpKLcrit0 and ExpKLcrit")
+print var.ExpKLcrit0
+print var.ExpKLcrit()
+
+
+printNewLine("Dimensionless variables when nabase=Nabase from paramter list and ltot=0.5")
+var=dimensionless_variables(An,alpha,Kl,I0,N0,nabase=Nabase,ltot=0.5)
+
+printNewLine("Expect -0.139 for Lcrit0")
+print var.Lcrit0
+
+printNewLine("Expect 0 for Lcrit")
+print var.Lcrit()
+
+printNewLine("Expect 1 for ExpKLcrit")
+print var.ExpKLcrit()
+
 ```
 
 N balance
