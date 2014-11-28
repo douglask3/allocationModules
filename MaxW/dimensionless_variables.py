@@ -1,4 +1,3 @@
-
 from math import exp,log
 
 __author__  = "Douglas Kelley"

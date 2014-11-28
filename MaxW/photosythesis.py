@@ -1,7 +1,7 @@
 from math import exp
 
 __author__  = "Douglas Kelley"
-__email__   = "douglas.kelley@students.mq.edu.com"
+__email__   = "douglas.kelley@mq.edu.com"
 
 
 class photosythesis(object):
