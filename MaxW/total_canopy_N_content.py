@@ -1,5 +1,4 @@
 from dimensionless_variables import dimensionless_variables
-#from math import exp,log
 
 __author__  = "Douglas Kelley"
 __email__   = "douglas.kelley@mq.edu.com"
