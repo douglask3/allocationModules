@@ -92,41 +92,47 @@ Solution derived by Lagrange multiplier method
 ---------------------------------------------
 ```python
 from dimensionless_variables import dimensionless_variables
-def vars(nabase,ltot): vars=dimensionless_variables(An,alpha,Kl,I0,N0,nabase,ltot)
 
 printNewLine("Dimensionless variables when nabase=Nabase from paramter list and ltot=5")
-var=dimensionless_variables(An,alpha,Kl,I0,N0,nabase=Nabase,ltot=5)
+nabase=Nabase
+ltot=5.0
+
+var=dimensionless_variables(An,alpha,Kl,I0,N0)
 
 printNewLine("Expect 0.336 for zeta")
-print(var.zeta)
+print var.zeta(nabase)
 
 printNewLine("Expect 2.977 for Lcrit0")
-print var.Lcrit0
+print var._Lcrit0(ltot, nabase)
 
 printNewLine("Expect 2.977 for Lcrit")
-print var.Lcrit()
+print var.Lcrit(ltot, nabase)
 
 printNewLine("Expect 3.597 for ExpKLcrit0 and ExpKLcrit")
-print var.ExpKLcrit0
-print var.ExpKLcrit()
+print var._ExpKLcrit0(ltot, nabase)
+print var.ExpKLcrit(ltot, nabase)
 
 
 printNewLine("Dimensionless variables when nabase=Nabase from paramter list and ltot=0.5")
-var=dimensionless_variables(An,alpha,Kl,I0,N0,nabase=Nabase,ltot=0.5)
+var=dimensionless_variables(An,alpha,Kl,I0,N0)
+nabase=Nabase
+ltot=0.5
 
 printNewLine("Expect -0.139 for Lcrit0")
-print var.Lcrit0
+print var._Lcrit0(ltot, nabase)
 
 printNewLine("Expect 0 for Lcrit")
-print var.Lcrit()
+print var.Lcrit(ltot, nabase)
 
 printNewLine("Expect 1 for ExpKLcrit")
-print var.ExpKLcrit()
+print var.ExpKLcrit(ltot, nabase)
 
 ```
 
 N balance
 ----------
+
+
 
 
 Determine Utot (kg N/m2/y) from Rtot (kg C/m2/y):

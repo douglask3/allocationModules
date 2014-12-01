@@ -8,7 +8,7 @@ class dimensionless_variables(object):
     """ Some variables used to in MaxW equations McMurtrie et al. (2013).
     
     """
-    def __init__(self, An, alpha, Kl, I0, N0, nabase, ltot):
+    def __init__(self, An, alpha, Kl, I0, N0):
         ## From parameter list
         self.An         = An
         self.alpha      = alpha
@@ -16,34 +16,32 @@ class dimensionless_variables(object):
         self.I0         = I0
         self.N0         = N0
         
-        ## Not from paramter list
-        self.zeta       = self.zeta(nabase)
-        self.ExpKlcrit_denominator = self.ExpKlcrit_denominator(ltot,nabase)
-        self.ExpKLcrit0 = self.ExpKLcrit0(ltot, nabase)
-        self.Lcrit0     = self.Lcrit0(ltot, nabase)
-        
     
     def zeta(self, nabase):    
         return(self.An*nabase / (self.alpha * self.Kl * self.I0))
     
     def ExpKlcrit_denominator(self,ltot,nabase):
-         a = (1.0 - self.N0 / nabase)
-         b = self.zeta * exp(self.Kl * ltot)
-         return( (b + 1.0 / a)** (0.5) - 1.0 )
+        a = (1.0 - self.N0 / nabase)
+        b = self.zeta(nabase) * exp(self.Kl * ltot)
+        return( (b + 1.0 / a)** (0.5) - 1.0 )
     
-    def ExpKLcrit0(self, ltot, nabase):
-        num = self.zeta * (1.0 - (self.N0 / nabase))
-        return( self.ExpKlcrit_denominator / num )
+    def _ExpKLcrit0(self, ltot, nabase):
+        num  = self.zeta(nabase) * (1.0 - (self.N0 / nabase))
+        return( self.ExpKlcrit_denominator(ltot, nabase) / num )
         
-    def Lcrit0(self,ltot,nabase):
-        return( (1.0 / self.Kl) * log(self.ExpKLcrit0) )
+    def _Lcrit0(self,ltot,nabase):
+        ExpKLcrit0 = self._ExpKLcrit0(ltot, nabase)
+        return( (1.0 / self.Kl) * log(ExpKLcrit0) )
         
-    def Lcrit(self):
-        return(0.0 if self.Lcrit0  < 0.0 else self.Lcrit0)
+    def Lcrit(self, ltot, nabase):
+        Lcrit0     = self._Lcrit0(ltot, nabase)
+        return(0.0 if Lcrit0  < 0.0 else Lcrit0)
         
-    def ExpKLcrit(self):
-        return(1.0 if self.Lcrit0 < 0.0 else self.ExpKLcrit0)
-        
+    def ExpKLcrit(self, ltot, nabase):
+        ExpKLcrit0 = self._ExpKLcrit0(ltot, nabase)
+        Lcrit0     = self._Lcrit0(ltot, nabase)
+        return(1.0 if Lcrit0 < 0.0 else ExpKLcrit0)
+
 """ References
     ==========
         McMurtrie RE, Dewar RC. New insights into carbon allocation by trees
