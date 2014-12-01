@@ -160,6 +160,10 @@ plt.show()
 
 ```
 
+Contributions to canopy photosynthesis *(mol/m2/s)*
+--------------------------------------
+from upper canopy (0<lai<Lcrit) (atotup) & lower canopy (Ltot<lai<Lcrit) (atotlow):
+
 
 
 Determine Utot (kg N/m2/y) from Rtot (kg C/m2/y):
