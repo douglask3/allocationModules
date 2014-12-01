@@ -16,16 +16,16 @@ class total_canopy_N_content(object):
         self.I0     = I0
         self.An     = An
         
-        self.DV     = dimensionless_variables(An, alpha, Kl, I0, N0, nabase, ltot)
-        self.Lcrit  = self.DV.Lcrit(ltot,nabase)
-        
     def ntot(ltot, nabase):
+        DV = dimensionless_variables(self.An, self.alpha, self.Kl, self.I0, self.N0,
+             nabase, ltot)
+             
         a = self.alpha * self.I0 / self.An
-        b = 1.0 - self.N0 / nabase * self.DV.ExpKlcrit_denominator
-        c = 1.0 - (1.0 /self.DV.ExpKLcrit(ltot, nabase))
+        b = 1.0 - self.N0 / nabase * DV.ExpKlcrit_denominator
+        c = 1.0 - (1.0 /DV.ExpKLcrit(ltot, nabase))
         d = nabase * ltot
         e = nabase - self.No
-        f = self.DV.Lcrit(ltot, nabse)
+        f = DV.Lcrit
         
         return( a *  b * c + d - e * f)
         
