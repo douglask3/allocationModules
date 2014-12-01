@@ -32,5 +32,3 @@ class total_canopy_N_content(object):
     def ntot2(ltot, nabase):
         return(ntot(ltot, nabase) if self.DV.Lcrit(ltot, nabse) > 0 else ltot * nabase )
         
-        
-        
