@@ -131,7 +131,18 @@ print var.ExpKLcrit(ltot, nabase)
 
 N balance
 ----------
+```python
+def printNewLine(txt): print("\n"+txt+":\t")
 
+from total_canopy_N_content import total_canopy_N_content
+
+canpyN=total_canopy_N_content(An,alpha,Kl,I0,N0)
+
+
+printNewLine("Ntot when ltot=5 and nabase=Nabase. Expecting 0.019207")
+print canpyN.ntot(5,Nabase)
+
+```
 
 
 
