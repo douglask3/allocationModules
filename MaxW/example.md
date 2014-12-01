@@ -13,6 +13,9 @@ this but of code soon:
 import re
 import sys
 import argparse
+import matplotlib.pyplot as plt
+from math import pi
+from numpy import arange
 
 from IPython.nbformat.v3.rwbase import NotebookReader
 from IPython.nbformat.v3.nbjson import JSONWriter
@@ -27,8 +30,6 @@ Parameter values
 As defined by Mcad file
 
 ```python
-from math import pi
-
 ## Photosynthesis & C balance
 w       = 0.49          # C content of
 Mastar  = 0.181         # Leaf mass per unit area at base of canopy (kg DM/m2)
@@ -141,6 +142,21 @@ canpyN=total_canopy_N_content(An,alpha,Kl,I0,N0)
 
 printNewLine("Ntot when ltot=5 and nabase=Nabase. Expecting 0.019207")
 print canpyN.ntot(5,Nabase)
+
+
+printNewLine("Ntot when ltot=0.5 and nabase=Nabase. Expecting 0.001267")
+print canpyN.ntot(0.5,Nabase)
+
+ltot=arange(0,15,0.01)
+
+ntot100 = [100*canpyN.ntot(x, Nabase) for x in ltot]
+Lcrit	= [canpyN.DV.Lcrit(x, Nabase) for x in ltot]
+
+plt.plot(ltot, ntot100,'r')
+plt.plot(ltot, Lcrit,'b:')
+plt.plot(ltot, ltot,'g--')
+plt.axis([0, 15, 0, 12.5])
+plt.show()
 
 ```
 

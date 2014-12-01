@@ -1,4 +1,6 @@
 from math import pi
+import matplotlib.pyplot as plt
+from numpy import arange
 
 ## Photosynthesis & C balance
 w       = 0.49          # C content of
@@ -52,3 +54,14 @@ print canpyN.ntot(5,Nabase)
 
 printNewLine("Ntot when ltot=0.5 and nabase=Nabase. Expecting 0.001267")
 print canpyN.ntot(0.5,Nabase)
+
+ltot=arange(0,15,0.01)
+
+ntot100 = [100*canpyN.ntot(x, Nabase) for x in ltot]
+Lcrit	= [canpyN.DV.Lcrit(x, Nabase) for x in ltot]
+
+plt.plot(ltot, ntot100,'r')
+plt.plot(ltot, Lcrit,'b:')
+plt.plot(ltot, ltot,'g--')
+plt.axis([0, 15, 0, 12.5])
+plt.show()
