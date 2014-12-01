@@ -13,10 +13,10 @@ class total_canopy_N_content(object):
 
         self.N0     = N0
         self.alpha  = alpha
-        self.Kl		= Kl
+        self.Kl     = Kl
         self.I0     = I0
         self.An     = An
-        self.DV = dimensionless_variables(self.An, self.alpha, self.Kl, self.I0, self.N0)
+        self.DV     = dimensionless_variables(self.An, self.alpha, self.Kl, self.I0, self.N0)
         
     def ntot(self,ltot, nabase):
              
