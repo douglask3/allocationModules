@@ -16,6 +16,7 @@ import argparse
 import matplotlib.pyplot as plt
 from math import pi
 from numpy import arange
+%matplotlib inline
 
 from IPython.nbformat.v3.rwbase import NotebookReader
 from IPython.nbformat.v3.nbjson import JSONWriter
