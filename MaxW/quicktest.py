@@ -43,7 +43,7 @@ Convfactor  = Daysperyear*Hoursperday*60*60*12*1E-3
  
 def printNewLine(txt): print("\n"+txt+":\t")
 
-def pltFunFromX(x,FUN,nabase,scale,*args):
+def pltFunFromX(x,FUN,nabase,scale=1,*args):
 	y = [scale*FUN(i, nabase) for i in x]
 	plt.plot(x,y,*args)
 
@@ -71,18 +71,8 @@ when_Ltot_is_5_and_05([1.335E-5, 3.522E-6],[0.0     , 1.695E-6],
 
 when_Ltot_is_5_and_05([1.687E-5],[1.695E-6],atot=A.atot)
 
-
-
-
-
 ltot=arange(0,15,0.01)
 
-ntot100 = [100*canpyN.ntot(x, Nabase) for x in ltot]
-Lcrit	= [canpyN.DV.Lcrit(x, Nabase) for x in ltot]
-printNewLine("when ltot="+str(x)+" and nabase=Nabase"+
-				 "\n\texpect "+str(a)+" for atotup"+str(n)+" and "+str(b)+" for atotlow"+str(n))
-plt.plot(ltot, ntot100,'r')
-plt.plot(ltot, Lcrit,'b:')
-plt.plot(ltot, ltot,'g--')
-plt.axis([0, 15, 0, 12.5])
+pltFunFromX(ltot,A.Atot,Nabase,1,'r')
+pltFunFromX(ltot,A.DV.Lcrit,Nabase,1,'b:')
 plt.show()
