@@ -16,7 +16,7 @@ class photosythesis(object):
         self.alpha		= alpha
         self.convfactor = convfactor
         self.DV			= dimensionless_variables(An, alpha, Kl, I0, N0)
-    	self
+    	self.a 			= alpha*I0
     
     # This First section may well be removed when imported to Gday
     def Asat(self, na):    
@@ -48,13 +48,18 @@ class photosythesis(object):
     	return( (1+self.DV.zeta(nabase)*exp(self.Kl*ltot))**0.5 )
     
     def _atotup1(ltot, nabase):
-    	a=self.alpha*self.I0
+    	
     	b=1+self.DV.zeta(nabase)
     	
-    	return(a*(1-b/self.zetaFun))
+    	return(self.a*(1-b/self.zetaFun))
     	
     def _atotup2(ltot,nabase):
-    	...
+    	b=1-(1/self.DV.ExpLcrit(ltot,nabase))
+    	c=1/(1-self.N0/nabase)
+    	d=self.DV.zeta(nabase)*exp(Kl*ltot)
+    	
+    	return(self.a*b*(1-1/((c+d)**0.5)))
+    	
     
     def atotup(ltot,nabase):
     	return(self._atotup1(lto,nabase) if self.N0==1 else self._atotup1(lto,nabase) )
@@ -63,12 +68,21 @@ class photosythesis(object):
     	a=-self.zetaFun+self.zetaFun**2
     	a=log(a/self.DV.zeta(nabase))
     	
-    	b=self.An.nabase
+    	b=self.An*nabase
     	
     	return(b * (ltot-(1/self.Kl)*a))
     	
     def _atotlow2(ltot,nabase):
-    	...
+    	a=self.An*(nabase-self.N0)
+    	b=ltot-self.DV.Lcrit(ltot,nabase)
+    	
+    	zetaFun=self.DV.zeta(nabase)*(1-(self.N0/nabase))
+    	
+    	c=1+zetaFun*exp(self.Kl*ltot)
+    	d=1+zetaFun*self.DV.ExpLcrit(ltot,nabase)
+    	
+    	return(a*(b-(1/self.Kl)*log(c/d)))
+    	
     	
     def atotlow (ltot,nabase):
     	return(self._atotlow1(lto,nabase) if self.N0==1 else self._atotlow2(lto,nabase) )
