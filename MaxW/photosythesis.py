@@ -1,4 +1,4 @@
-from math import exp
+from math import exp, log
 from dimensionless_variables import dimensionless_variables
 
 __author__  = "Douglas Kelley"
@@ -44,48 +44,50 @@ class photosythesis(object):
         
     #This section will probably be used
     
-    def zetaFun(ltot,nabase):
+    def zetaFun(self,ltot,nabase):
     	return( (1+self.DV.zeta(nabase)*exp(self.Kl*ltot))**0.5 )
     
-    def _atotup1(ltot, nabase):
+    def _atotup1(self,ltot, nabase):
     	
     	b=1+self.DV.zeta(nabase)
     	
-    	return(self.a*(1-b/self.zetaFun))
+    	return(self.a*(1-b/self.zetaFun(ltot,nabase)))
     	
-    def _atotup2(ltot,nabase):
-    	b=1-(1/self.DV.ExpLcrit(ltot,nabase))
+    def _atotup2(self,ltot,nabase):
+    	b=1-(1/self.DV.ExpKLcrit(ltot,nabase))
     	c=1/(1-self.N0/nabase)
-    	d=self.DV.zeta(nabase)*exp(Kl*ltot)
+    	d=self.DV.zeta(nabase)*exp(self.Kl*ltot)
     	
     	return(self.a*b*(1-1/((c+d)**0.5)))
     	
     
-    def atotup(ltot,nabase):
-    	return(self._atotup1(lto,nabase) if self.N0==1 else self._atotup1(lto,nabase) )
+    def atotup(self,ltot,nabase):
+    	return(self._atotup1(ltot,nabase) if self.N0==1 else self._atotup1(lto,nabase) )
     
-    def _atotlow1(ltot,nabase):
-    	a=-self.zetaFun+self.zetaFun**2
+    def _atotlow1(self,ltot,nabase):
+    	zetaFun=self.zetaFun(ltot,nabase)
+    	a=-zetaFun+zetaFun**2
     	a=log(a/self.DV.zeta(nabase))
     	
     	b=self.An*nabase
     	
     	return(b * (ltot-(1/self.Kl)*a))
     	
-    def _atotlow2(ltot,nabase):
+    def _atotlow2(self,ltot,nabase):
     	a=self.An*(nabase-self.N0)
     	b=ltot-self.DV.Lcrit(ltot,nabase)
     	
     	zetaFun=self.DV.zeta(nabase)*(1-(self.N0/nabase))
     	
     	c=1+zetaFun*exp(self.Kl*ltot)
-    	d=1+zetaFun*self.DV.ExpLcrit(ltot,nabase)
+    	d=1+zetaFun*self.DV.ExpKLcrit(ltot,nabase)
     	
     	return(a*(b-(1/self.Kl)*log(c/d)))
     	
     	
-    def atotlow (ltot,nabase):
+    def atotlow (self,ltot,nabase):
     	return(self._atotlow1(lto,nabase) if self.N0==1 else self._atotlow2(lto,nabase) )
+    	
     		
 """ References
     ==========
