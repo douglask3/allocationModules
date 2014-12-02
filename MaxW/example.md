@@ -10,18 +10,11 @@ First off, this currently needs setting up (hopefully I can remove
 this but of code soon:
 
 ```python
-import re
-import sys
-import argparse
 import matplotlib.pyplot as plt
 from math import pi
 from numpy import arange
 %matplotlib inline
 
-from IPython.nbformat.v3.rwbase import NotebookReader
-from IPython.nbformat.v3.nbjson import JSONWriter
-
-import IPython.nbformat.v3.nbbase as nbbase
 
 def printNewLine(txt): print("\n"+txt+":\t")
 
@@ -30,8 +23,6 @@ def printNewLine(txt): print("\n"+txt+":\t")
 def pltFunFromX(x,FUN,nabase,scale=1,*args):
     y = [scale*FUN(i, nabase) for i in x]
     plt.plot(x,y,*args)
-
-from photosythesis import photosythesis
 
 def when_Ltot_is_X_and_nabase__is_NaBase_Expect(x,vs,**FUNs):
     strng = "when ltot=" + str(x) + " and nabase=Nabase, Expect:"
@@ -115,21 +106,22 @@ Solution derived by Lagrange multiplier method
 ---------------------------------------------
 ```python
 from dimensionless_variables import dimensionless_variables
-
-printNewLine("Dimensionless variables when nabase=Nabase from paramter list and ltot=5")
-nabase=Nabase
-ltot=5.0
-
 var=dimensionless_variables(An,alpha,Kl,I0,N0)
 
-printNewLine("Expect 0.336 for zeta")
-print var.zeta(nabase)
+printNewLine("Dimensionless variables when nabase=Nabase")
 
-printNewLine("Expect 2.977 for Lcrit0")
-print var._Lcrit0(ltot, nabase)
+printNewLine("When nabase=Nabase, Expect 0.336 for zeta")
+print var.zeta(Nabase)
 
-printNewLine("Expect 2.977 for Lcrit")
-print var.Lcrit(ltot, nabase)
+
+when_Ltot_is_5_and_05([2.977 , 2.977, 3.597, 3.597],
+                      [-0.139, 0    , 1    , 1],
+                      Lcrit0=var._Lcrit0,Lcrit=var.Lcrit,ExpKLcrit0=var._ExpKLcrit0,ExpKLcrit=var.ExpKLcrit)
+
+
+
+
+
 
 printNewLine("Expect 3.597 for ExpKLcrit0 and ExpKLcrit")
 print var._ExpKLcrit0(ltot, nabase)
@@ -161,13 +153,7 @@ from total_canopy_N_content import total_canopy_N_content
 
 canpyN=total_canopy_N_content(An,alpha,Kl,I0,N0)
 
-
-printNewLine("Ntot when ltot=5 and nabase=Nabase. Expecting 0.019207")
-print canpyN.ntot(5,Nabase)
-
-
-printNewLine("Ntot when ltot=0.5 and nabase=Nabase. Expecting 0.001267")
-print canpyN.ntot(0.5,Nabase)
+when_Ltot_is_5_and_05([0.019207],[0.001267],Ntot=canpyN.ntot)
 
 ltot=arange(0,15,0.01)
 
