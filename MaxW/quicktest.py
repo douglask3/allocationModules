@@ -64,10 +64,12 @@ def when_Ltot_is_5_and_05(vs5,vs05,**FUNs):
 	when_Ltot_is_X_and_nabase__is_NaBase_Expect(5.0, vs5  ,**FUNs)
 	when_Ltot_is_X_and_nabase__is_NaBase_Expect(0.5, vs05 ,**FUNs)
 	
-when_Ltot_is_5_and_05([1.181E-5, 5.054E-6],[-4.49E-6, 7.511E-6],atotup1=A._atotup1, atotlow1=A._atotlow1)
-when_Ltot_is_5_and_05([1.335E-5, 3.522E-6],[0.0     , 1.695E-6],atotup1=A._atotup2, atotlow1=A._atotlow2)
+when_Ltot_is_5_and_05([1.181E-5, 5.054E-6],[-4.49E-6, 7.511E-6],
+					  atotup1=A._atotup1, atotlow1=A._atotlow1)
+when_Ltot_is_5_and_05([1.335E-5, 3.522E-6],[0.0     , 1.695E-6],
+					  atotup2=A._atotup2, atotlow2=A._atotlow2)
 
-when_Ltot_is_5_and_05([1.181E-5, 5.054E-6],[-4.49E-6, 7.511E-6],atotup1=A._atotup1, atotlow1=A._atotlow1)
+when_Ltot_is_5_and_05([1.687E-5],[1.695E-6],atot=A.atot)
 
 
 
