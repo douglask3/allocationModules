@@ -24,6 +24,27 @@ from IPython.nbformat.v3.nbjson import JSONWriter
 import IPython.nbformat.v3.nbbase as nbbase
 
 def printNewLine(txt): print("\n"+txt+":\t")
+
+def printNewLine(txt): print("\n"+txt+":\t")
+
+def pltFunFromX(x,FUN,nabase,scale=1,*args):
+    y = [scale*FUN(i, nabase) for i in x]
+    plt.plot(x,y,*args)
+
+from photosythesis import photosythesis
+
+def when_Ltot_is_X_and_nabase__is_NaBase_Expect(x,vs,**FUNs):
+    strng = "when ltot=" + str(x) + " and nabase=Nabase, Expect:"
+    keys  = FUNs.keys()
+    
+    for i in range(len(vs)): strng = strng + "\n\t" + str(vs[i]) + " for " + keys[i]
+    printNewLine(strng)
+    
+    for i in FUNs: print FUNs[i](x, Nabase)
+    
+def when_Ltot_is_5_and_05(vs5,vs05,**FUNs):
+    when_Ltot_is_X_and_nabase__is_NaBase_Expect(5.0, vs5  ,**FUNs)
+    when_Ltot_is_X_and_nabase__is_NaBase_Expect(0.5, vs05 ,**FUNs)
 ```
 
 Parameter values
@@ -151,7 +172,7 @@ print canpyN.ntot(0.5,Nabase)
 ltot=arange(0,15,0.01)
 
 ntot100 = [100*canpyN.ntot(x, Nabase) for x in ltot]
-Lcrit	= [canpyN.DV.Lcrit(x, Nabase) for x in ltot]
+Lcrit   = [canpyN.DV.Lcrit(x, Nabase) for x in ltot]
 
 plt.plot(ltot, ntot100,'r')
 plt.plot(ltot, Lcrit,'b:')
@@ -165,6 +186,22 @@ Contributions to canopy photosynthesis *(mol/m2/s)*
 --------------------------------------
 from upper canopy (0<lai<Lcrit) (atotup) & lower canopy (Ltot<lai<Lcrit) (atotlow):
 
+```python
+A=photosythesis(An, N0, Kl, Rleaf, I0, alpha, Convfactor)
+    
+when_Ltot_is_5_and_05([1.181E-5, 5.054E-6],[-4.49E-6, 7.511E-6],
+                      atotup1=A._atotup1, atotlow1=A._atotlow1)
+when_Ltot_is_5_and_05([1.335E-5, 3.522E-6],[0.0     , 1.695E-6],
+                      atotup2=A._atotup2, atotlow2=A._atotlow2)
+
+when_Ltot_is_5_and_05([1.687E-5],[1.695E-6],atot=A.atot)
+
+ltot=arange(0,15,0.01)
+
+pltFunFromX(ltot,A.Atot,Nabase,1,'r')
+pltFunFromX(ltot,A.DV.Lcrit,Nabase,1,'b:')
+plt.show()
+```
 
 
 Determine Utot (kg N/m2/y) from Rtot (kg C/m2/y):
