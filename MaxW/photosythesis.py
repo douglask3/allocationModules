@@ -1,5 +1,6 @@
-from math import exp, log
+from math 					 import exp, log
 from dimensionless_variables import dimensionless_variables
+from total_canopy_N_content	 import total_canopy_N_content
 
 __author__  = "Douglas Kelley"
 __email__   = "douglas.kelley@mq.edu.com"
@@ -17,6 +18,7 @@ class photosythesis(object):
         self.convfactor = convfactor
         self.DV			= dimensionless_variables(An, alpha, Kl, I0, N0)
     	self.a 			= alpha*I0
+    	self.totalN		= total_canopy_N_content(An, alpha, Kl, I0, N0)
     
     # This First section may well be removed when imported to Gday
     def Asat(self, na):    
@@ -94,7 +96,7 @@ class photosythesis(object):
     	return( self.atotup(*args)+self.atotlow(*args) )
     
     def Atot(self,*args):
-    	return( self.atot(*args) - self.Rleaf(*args) )
+    	return( self.convfactor * (self.atot(*args) - self.Rleaf * self.totalN.ntot2(*args)) )
 	
 	
 """ References
