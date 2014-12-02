@@ -43,13 +43,32 @@ Convfactor  = Daysperyear*Hoursperday*60*60*12*1E-3
  
 def printNewLine(txt): print("\n"+txt+":\t")
 
-from total_canopy_N_content import total_canopy_N_content
+def pltFunFromX(x,FUN,nabase,scale,*args):
+	y = [scale*FUN(i, nabase) for i in x]
+	plt.plot(x,y,*args)
 
-canpyN=total_canopy_N_content(An,alpha,Kl,I0,N0)
+from photosythesis import photosythesis
 
+A=photosythesis(An, N0, Kl, Rleaf, I0, alpha, Convfactor)
 
-printNewLine("Ntot when ltot=5 and nabase=Nabase. Expecting 0.019207")
-print canpyN.ntot(5,Nabase)
+def when_Ltot_is_X_and_nabase__is_NaBase_Expect(x,n,a,b,FUN1,FUN2):
+	printNewLine("when ltot="+str(x)+" and nabase=Nabase"+
+				 "\n\texpect "+str(a)+" for atotup"+str(n)+" and "+str(b)+" for atotlow"+str(n))
+	print FUN1(x,Nabase)
+	print FUN2(x,Nabase)
+	
+when_Ltot_is_X_and_nabase__is_NaBase_Expect(5.0, 1, 1.181E-5, 5.054E-6,
+								            A._atotup1, A._atotlow1)
+
+when_Ltot_is_X_and_nabase__is_NaBase_Expect(0.5, 1, -4.49E-6,7.511E-6,
+								            A._atotup1, A._atotlow1)
+
+when_Ltot_is_X_and_nabase__is_NaBase_Expect(5.0, 2, 1.335E-5, 3.522E-6,
+								            A._atotup2, A._atotlow2)
+
+when_Ltot_is_X_and_nabase__is_NaBase_Expect(0.5, 2, 0.0     , 1.695E-6,
+								            A._atotup2, A._atotlow2)
+
 
 
 printNewLine("Ntot when ltot=0.5 and nabase=Nabase. Expecting 0.001267")
