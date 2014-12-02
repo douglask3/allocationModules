@@ -60,9 +60,11 @@ class photosythesis(object):
     	
     	return(self.a*b*(1-1/((c+d)**0.5)))
     	
+    def _atotXX_fromN0(self,Fun1,Fun2,*args):
+    	return(Fun1(*args) if self.N0==1 else Fun2(*args) )
     
     def atotup(self,*args):
-    	return(self._atotup1(*args) if self.N0==1 else self._atotup2(*args) )
+    	return(self._atotXX_fromN0(self._atotup1,self._atotup2,*args))
     
     def _atotlow1(self,ltot,nabase):
     	zetaFun=self.zetaFun(ltot,nabase)
@@ -86,7 +88,7 @@ class photosythesis(object):
     	
     	
     def atotlow (self,*args):
-    	return(self._atotlow1(*args) if self.N0==1 else self._atotlow2(*args) )
+    	return(self._atotXX_fromN0(self._atotlow1,self._atotlow2,*args))
     	
     def atot(self,*args):
     	return( self.atotup(*args)+self.atotlow(*args) )
