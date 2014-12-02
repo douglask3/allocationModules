@@ -29,17 +29,17 @@ class dimensionless_variables(object):
         num  = self.zeta(nabase) * (1.0 - (self.N0 / nabase))
         return( self.ExpKlcrit_denominator(ltot, nabase) / num )
         
-    def _Lcrit0(self,ltot,nabase):
-        ExpKLcrit0 = self._ExpKLcrit0(ltot, nabase)
+    def _Lcrit0(self, *args):
+        ExpKLcrit0 = self._ExpKLcrit0(*args)
         return( (1.0 / self.Kl) * log(ExpKLcrit0) )
         
-    def Lcrit(self, ltot, nabase):
-        Lcrit0     = self._Lcrit0(ltot, nabase)
+    def Lcrit(self, *args):
+        Lcrit0     = self._Lcrit0(*args)
         return(0.0 if Lcrit0  < 0.0 else Lcrit0)
         
-    def ExpKLcrit(self, ltot, nabase):
-        ExpKLcrit0 = self._ExpKLcrit0(ltot, nabase)
-        Lcrit0     = self._Lcrit0(ltot, nabase)
+    def ExpKLcrit(self, *args):
+        ExpKLcrit0 = self._ExpKLcrit0(*args)
+        Lcrit0     = self._Lcrit0(*args)
         return(1.0 if Lcrit0 < 0.0 else ExpKLcrit0)
 
 """ References
