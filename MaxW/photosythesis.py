@@ -61,8 +61,8 @@ class photosythesis(object):
     	return(self.a*b*(1-1/((c+d)**0.5)))
     	
     
-    def atotup(self,ltot,nabase):
-    	return(self._atotup1(ltot,nabase) if self.N0==1 else self._atotup1(lto,nabase) )
+    def atotup(self,*args):
+    	return(self._atotup1(*args) if self.N0==1 else self._atotup2(*args) )
     
     def _atotlow1(self,ltot,nabase):
     	zetaFun=self.zetaFun(ltot,nabase)
@@ -85,10 +85,16 @@ class photosythesis(object):
     	return(a*(b-(1/self.Kl)*log(c/d)))
     	
     	
-    def atotlow (self,ltot,nabase):
-    	return(self._atotlow1(lto,nabase) if self.N0==1 else self._atotlow2(lto,nabase) )
+    def atotlow (self,*args):
+    	return(self._atotlow1(*args) if self.N0==1 else self._atotlow2(*args) )
     	
-    		
+    def atot(self,*args):
+    	return( self.atotup(*args)+self.atotlow(*args) )
+    
+    def Atot(self,*args):
+    	return( self.atot(*args) - self.Rleaf(*args) )
+	
+	
 """ References
     ==========
         McMurtrie RE, Dewar RC. New insights into carbon allocation by trees
