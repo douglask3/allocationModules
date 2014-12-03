@@ -18,7 +18,7 @@ class photosythesis(object):
         self.convfactor = convfactor
         self.DV			= dimensionless_variables(An, alpha, Kl, I0, N0)
     	self.a 			= alpha*I0
-    	self.totalN		= total_canopy_N_content(An, alpha, Kl, I0, N0)
+    	self.ntot		= total_canopy_N_content(An, alpha, Kl, I0, N0).ntot
     
     # This First section may well be removed when imported to Gday
     def Asat(self, na):    
@@ -96,7 +96,7 @@ class photosythesis(object):
     	return( self.atotup(*args)+self.atotlow(*args) )
     
     def Atot(self,*args):
-    	return( self.convfactor * (self.atot(*args) - self.Rleaf * self.totalN.ntot2(*args)) )
+    	return( self.convfactor * (self.atot(*args) - self.Rleaf * self.ntot(*args)) )
 	
 	
 """ References
