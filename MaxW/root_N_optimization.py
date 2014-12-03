@@ -35,7 +35,7 @@ class root_N_optimization(object):
     	b=2*self.R0
     	return(self.R0*(b*b-dmax))
     
-    def _rotOpt(dmax,rtot) return( rtot2(dmax) - rtot )
+    def _rotOpt(dmax,rtot) return( self.rtot2(dmax) - rtot )
     
     def dmax1(rtot,dmaxsoln=1):
     	newton(self._rotOpt, dmaxsoln, args = (nrtot) )
