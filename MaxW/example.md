@@ -33,6 +33,9 @@ def when_Ltot_is_5_and_05(vs5, vs05, *args):
     when_Ltot_is_X_and_nabase__is_NaBase_Expect(5.0, vs5, *args)
     when_Ltot_is_X_and_nabase__is_NaBase_Expect(0.5, vs05, *args)
 
+def lapply(x,FUN,*args):
+    return( [FUN(i, *args) for i in x] )
+
 def pltFunFromX(x,FUN,nabase,scale=1,*args,**args2):
     y = [scale*FUN(i, nabase) for i in x]
     plt.plot(x,y,*args,**args2)
@@ -168,6 +171,14 @@ when_Ltot_is_5_and_05([1.687E-5], [1.695E-6], ["atot"], [A.atot])
 pltFunFromX(ltotX, A.Atot    , Nabase, 1, 'r' , label='atot (LTOT,NAbase)')
 pltFunFromX(ltotX, A.DV.Lcrit, Nabase, 1, 'b:', label='Lcrit(ltot,Nabase)')
 finishPlot()
+
+ntot2 = lapply(ltotX, canpyN.ntot, Nabase) 
+atot2 = lapply(ltotX, A.Atot     , Nabase) 
+
+plt.plot(ntot2, atot2, 'r' , label='atot(ltot,Nabase)')
+plt.plot(ntot2, ltot , 'b:' , label='ltot')
+finishPlot(xlab='ntot(ltot,Nabase)')
+
 ```
 
 

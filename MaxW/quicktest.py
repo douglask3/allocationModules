@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 from math  import pi
 from numpy import arange
 
-
 def printNewLine(txt): print("\n"+txt+":\t")
 
 def printNewLine(txt): print("\n"+txt+":\t")
@@ -21,6 +20,9 @@ def when_Ltot_is_5_and_05(vs5, vs05, *args):
     when_Ltot_is_X_and_nabase__is_NaBase_Expect(5.0, vs5, *args)
     when_Ltot_is_X_and_nabase__is_NaBase_Expect(0.5, vs05, *args)
 
+def lapply(x,FUN,*args):
+    return( [FUN(i, *args) for i in x] )
+
 def pltFunFromX(x,FUN,nabase,scale=1,*args,**args2):
     y = [scale*FUN(i, nabase) for i in x]
     plt.plot(x,y,*args,**args2)
@@ -29,6 +31,7 @@ def finishPlot(loc='upper left',xlab='ltot'):
     plt.legend(loc=loc)
     plt.xlabel(xlab)
     plt.show()
+
 
 ## Photosynthesis & C balance
 ## Photosynthesis & C balance
