@@ -11,7 +11,7 @@ class root_N_optimization(object):
     """ Calculation of LAI as uses in McMurtrie et al. (2013).
     
     """
-    def __init__(self, An, alpha, Kl, I0, N0, Rleaf, convfactor):
+    def __init__(self,D0, R0):
         ## From parameter list
         self.D0		= D0
         self.R0		= R0
