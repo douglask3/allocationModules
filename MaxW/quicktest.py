@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-%matplotlib inline
+#%matplotlib inline
 
 from math  import pi
 from numpy import arange
@@ -68,12 +68,25 @@ Daysperyear = 209       # Growing season length (days)
 Hoursperday = 14.14     # Daylight length (hrs)
 Convfactor  = Daysperyear*Hoursperday*60*60*12*1E-3
                         # i.e seconds per year
+
+## New ones to add to example
+ltotSoln	= 3
+TOL			= 1E-9
                         
 ## Some plotting variables:
 ltotX=arange(0,15,0.01)
 
 
+from total_canopy_N_content import total_canopy_N_content
+canpyN=total_canopy_N_content(An,alpha,Kl,I0,N0)
+
 ############################################################
  
 	
+from total_canopy_LAI import total_canopy_LAI
 
+cLAI=total_canopy_LAI(An, alpha, Kl, I0, N0, ltotSoln)
+
+res=cLAI.Ltotopt(Nabase,Ntot)
+print res
+print canpyN.ntot(res,Nabase)
