@@ -17,7 +17,7 @@ class total_canopy_N_content(object):
         self.An     = An
         self.DV     = dimensionless_variables(self.An, self.alpha, self.Kl, self.I0, self.N0)
         
-    def ntot(self,ltot, nabase):
+    def _ntot(self,ltot, nabase):
              
         a = self.alpha * self.I0 / self.An
         b = self.DV.ExpKlcrit_denominator(ltot,nabase)
@@ -28,6 +28,6 @@ class total_canopy_N_content(object):
         
         return( a *  b * c + d - e * f)
         
-    def ntot2(self,ltot, nabase):
-        return(self.ntot(ltot, nabase) if self.DV.Lcrit(ltot, nabase) > 0 else ltot * nabase )
+    def ntot(self,ltot, nabase):
+        return(self._ntot(ltot, nabase) if self.DV.Lcrit(ltot, nabase) > 0 else ltot * nabase )
         
