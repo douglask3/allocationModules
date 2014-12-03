@@ -19,7 +19,7 @@ class photosythesis(object):
         self.DV			= dimensionless_variables(An, alpha, Kl, I0, N0)
     	self.a 			= alpha*I0
     	
-    	N				= total_canopy_N_content(An, alpha, Kl, I0, N0).ntot
+    	N				= total_canopy_N_content(An, alpha, Kl, I0, N0)
     	self.ntot		= N.ntot
     	self.remainingN = N.remainingN
     
