@@ -105,11 +105,5 @@ when_xxx_is_X_and_nabase_is_NaBase_Expect('Ltotopt',Ltotopt, [0.022],
 when_xxx_is_X_and_nabase_is_NaBase_Expect('ntot',Ntot, [2.304],
 													['AtotVsNtot'], [cLAI.AtotVsNtot])
 													
-when_xxx_is_X_and_nabase_is_NaBase_Expect('ntot',0, [0],
-													['AtotVsNtot'], [cLAI.AtotVsNtot])
+when_xxx_is_X_and_nabase_is_NaBase_Expect('ntot',0, [0], ['AtotVsNtot'], [cLAI.AtotVsNtot])
 																										
-print canpyN.ntot(Ltotopt,Nabase)
-
-print cLAI.AtotVsNtot(Ntot,Nabase)
-
-print cLAI.AtotVsNtot(0,Nabase)
