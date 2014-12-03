@@ -11,13 +11,19 @@ class root_N_optimization(object):
     """ Calculation of LAI as uses in McMurtrie et al. (2013).
     
     """
-    def __init__(self,D0, R0, Nw, CUE):
+    def __init__(self,D0, R0, Nw, CUE, Retrans,
+    			 An, N0, Kl, Rleaf, I0, alpha, convfactor):
         ## From parameter list
         self.D0		= D0
         self.R0		= R0
         self.Nw		= Nw
         self.CUE	= CUE
-    	
+        self.Retrans= Retrans
+        self.Tauf	= Tauf
+        self.Taur	= Taur
+        
+        self.atot	= photosythesis(An, N0, Kl, Rleaf, I0, alpha, convfactor).atot
+    	self.ntot	= total_canopy_N_content(An, alpha, Kl, I0, N0).ntot
     	
     def utot(self, dmax, umax):
     	return(umax*(1-exp(-dmax/2*D0))**2)
@@ -61,9 +67,9 @@ class root_N_optimization(object):
     	utot=self.utot(dmax,umax)
     	atot=self.atot(ltot,nabase)
     	ntot=self.ntot(ltot,nabase)
-    	rtot=self.rtot(dmax)
+    	rtot=self.rtot2(dmax)
     	
-    	a=self.Nw*CUE*atot
+    	a=self.Nw*self.CUE*atot
     	b=ntot/self.Tauf
     	c=1-self.Retrans-self.Nw/nf
     	
@@ -79,7 +85,7 @@ class root_N_optimization(object):
  	def cwmax(dmax,ltot,nabase,nf):
  		a=CUE*self.atot(ltot,nabase)
  		b=self.ntot(ltot,nabase)/(nf*self.Tauf)
- 		c=self.rtot(dmax)/self.Taur
+ 		c=self.rtot2(dmax)/self.Taur
  		
  		return(a - b - c)
  	
