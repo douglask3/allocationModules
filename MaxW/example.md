@@ -24,19 +24,17 @@ def pltFunFromX(x,FUN,nabase,scale=1,*args):
     y = [scale*FUN(i, nabase) for i in x]
     plt.plot(x,y,*args)
 
-def when_Ltot_is_X_and_nabase__is_NaBase_Expect(x,vs,**FUNs):
+def when_Ltot_is_X_and_nabase__is_NaBase_Expect(x, vs, names, FUNs):
     strng = "when ltot=" + str(x) + " and nabase=Nabase, Expect:"
-    keys  = FUNs.keys()
-    print(keys)
-    print("---")
-    for i in range(len(vs)): strng = strng + "\n\t" + str(vs[i]) + " for " + keys[i]
+    
+    for i in range(len(vs)): strng = strng + "\n\t" + str(vs[i]) + " for " + names[i]
     printNewLine(strng)
     
-    for i in FUNs: print FUNs[i](x, Nabase)
+    for i in FUNs: print i(x, Nabase)
     
-def when_Ltot_is_5_and_05(vs5,vs05,**FUNs):
-    when_Ltot_is_X_and_nabase__is_NaBase_Expect(5.0, vs5  ,**FUNs)
-    when_Ltot_is_X_and_nabase__is_NaBase_Expect(0.5, vs05 ,**FUNs)
+def when_Ltot_is_5_and_05(vs5, vs05, *args):
+    when_Ltot_is_X_and_nabase__is_NaBase_Expect(5.0, vs5, *args)
+    when_Ltot_is_X_and_nabase__is_NaBase_Expect(0.5, vs05, *args)
 ```
 
 Parameter values
@@ -120,8 +118,8 @@ print var.zeta(Nabase)
 
 
 when_Ltot_is_5_and_05([2.977 , 2.977, 3.597, 3.597],
-                      [-0.139, 0    , 1    , 1],
-                      Lcrit0=var._Lcrit0,Lcrit=var.Lcrit,ExpKLcrit0=var._ExpKLcrit0,ExpKLcrit=var.ExpKLcrit)
+                      [-0.139, 0    , 1    , 1],["Lcrit0","Lcrit","ExpKLcrit0","ExpKLcrit"],
+                      [var._Lcrit0,var.Lcrit,var._ExpKLcrit0,var.ExpKLcrit])
 
 
 ```
@@ -135,13 +133,14 @@ from total_canopy_N_content import total_canopy_N_content
 
 canpyN=total_canopy_N_content(An,alpha,Kl,I0,N0)
 
-when_Ltot_is_5_and_05([0.019207],[0.001267],Ntot=canpyN.ntot)
+when_Ltot_is_5_and_05([0.019207],[0.001267],["Ntot"],[canpyN.ntot])
 
 
 pltFunFromX(ltotX, canpyN.ntot     , Nabase, 100, 'r')
 pltFunFromX(ltotX, canpyN.DV.Lcrit , Nabase, 1,   'b:')
 plt.plot(ltotX, ltotX,'g--')
 plt.axis([0, 15, 0, 12.5])
+
 plt.show()
 ```
 
@@ -152,12 +151,14 @@ from upper canopy (0<lai<Lcrit) (atotup) & lower canopy (Ltot<lai<Lcrit) (atotlo
 ```python
 A=photosythesis(An, N0, Kl, Rleaf, I0, alpha, Convfactor)
     
-when_Ltot_is_5_and_05([1.181E-5, 5.054E-6],[-4.49E-6, 7.511E-6],
-                      atotup1=A._atotup1, atotlow1=A._atotlow1)
-when_Ltot_is_5_and_05([1.335E-5, 3.522E-6],[0.0     , 1.695E-6],
-                      atotup2=A._atotup2, atotlow2=A._atotlow2)
+when_Ltot_is_5_and_05([1.181E-5, 5.054E-6],[-4.49E-6, 7.511E-6],["atotup1","atotlow1"],
+                      [A._atotup1, A._atotlow1])
+                      
 
-when_Ltot_is_5_and_05([1.687E-5],[1.695E-6],atot=A.atot)
+when_Ltot_is_5_and_05([1.335E-5, 3.522E-6],[0.0, 1.695E-6],
+                      ["atotup2", "atotlow2"],[A._atotup2, A._atotlow2])
+
+when_Ltot_is_5_and_05([1.687E-5], [1.695E-6], ["atot"], [A.atot])
 
 pltFunFromX(ltotX,A.Atot,Nabase,1,'r')
 pltFunFromX(ltotX,A.DV.Lcrit,Nabase,1,'b:')
