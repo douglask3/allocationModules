@@ -88,22 +88,5 @@ canpyN=total_canopy_N_content(An,alpha,Kl,I0,N0)
 ############################################################
  
 	
-from total_canopy_LAI import total_canopy_LAI
 
-cLAI=total_canopy_LAI(An, alpha, Kl, I0, N0, Rleaf, Convfactor)
-
-Ltotopt=cLAI.Ltotopt(Ntot,Nabase)
-
-
-
-Ltotopt = when_xxx_is_X_and_nabase_is_NaBase_Expect('ntot',Ntot, [5.357],
-													['LtotOpt'], [cLAI.Ltotopt])[0]
-
-when_xxx_is_X_and_nabase_is_NaBase_Expect('Ltotopt',Ltotopt, [0.022],
-													['ntot'], [canpyN.ntot])
-													
-when_xxx_is_X_and_nabase_is_NaBase_Expect('ntot',Ntot, [2.304],
-													['AtotVsNtot'], [cLAI.AtotVsNtot])
-													
-when_xxx_is_X_and_nabase_is_NaBase_Expect('ntot',0, [0], ['AtotVsNtot'], [cLAI.AtotVsNtot])
 																										
