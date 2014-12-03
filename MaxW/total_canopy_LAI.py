@@ -24,11 +24,11 @@ class total_canopy_LAI(object):
     def _N(self, ltot, nabase, ntot0):
     	return(self.ntot(ltot, nabase) - ntot0)
     
-    def Ltotopt(self, nabase, ntot, ltotsoln = 3):
+    def Ltotopt(self, ntot, nabase, ltotsoln = 3):
         return( newton(self._N, ltotsoln, args = (nabase, ntot) ) )
 
-    def AtotVsNtot(self, nabase, ntot):
-        ltotopt = self.Ltotopt(nabase, ntot)
+    def AtotVsNtot(self, ntot, nabase):
+        ltotopt = self.Ltotopt(ntot, nabase)
         return( self.Atot(ltotopt, nabase) )
         
 """ References
