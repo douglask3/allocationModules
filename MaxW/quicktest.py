@@ -79,14 +79,11 @@ ltotSoln	= 3
 TOL			= 1E-9
                         
 ## Some plotting variables:
-ltotX=arange(0,15,0.01)
+ltotX		= arange(0,15,0.01)
 
 
 from total_canopy_N_content import total_canopy_N_content
 canpyN=total_canopy_N_content(An,alpha,Kl,I0,N0)
 
 ############################################################
- 
-	
-
-																										
+ 																										

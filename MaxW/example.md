@@ -95,7 +95,7 @@ Convfactor  = Daysperyear*Hoursperday*60*60*12*1E-3
                         # i.e seconds per year
                         
 ## Some plotting variables:
-ltotX=arange(0,15,0.01)
+ltotX       = arange(0,15,0.01)
 
 ```
 
