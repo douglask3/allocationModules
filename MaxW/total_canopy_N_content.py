@@ -31,3 +31,14 @@ class total_canopy_N_content(object):
     def ntot(self,ltot, nabase):
         return(self._ntot(ltot, nabase) if self.DV.Lcrit(ltot, nabase) > 0 else ltot * nabase )
         
+    def Na2(lai,ltot,nabase):
+    	Lcrit=self.DV.Lcrit(ltot,nabase)
+    	
+    	if lai>=Lcrit:
+    		return(nabase)
+    	else:
+    		a=self.alpha*self.Kl*self.I0*exp(-self.Kl*lai)/self.An
+    		b=self.DV.zetaFun2(ltot,nabase)-1
+    		return(self.N0+a*b)
+    	
+    	

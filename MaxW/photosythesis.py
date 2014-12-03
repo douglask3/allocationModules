@@ -18,7 +18,10 @@ class photosythesis(object):
         self.convfactor = convfactor
         self.DV			= dimensionless_variables(An, alpha, Kl, I0, N0)
     	self.a 			= alpha*I0
-    	self.ntot		= total_canopy_N_content(An, alpha, Kl, I0, N0).ntot
+    	
+    	N				= total_canopy_N_content(An, alpha, Kl, I0, N0).ntot
+    	self.ntot		= N.ntot
+    	self.remainingN = N.remainingN
     
     # This First section may well be removed when imported to Gday
     def Asat(self, na):    
@@ -46,9 +49,6 @@ class photosythesis(object):
         
     #This section will probably be used
     
-    def zetaFun(self,ltot,nabase):
-    	return( (1+self.DV.zeta(nabase)*exp(self.Kl*ltot))**0.5 )
-    
     def _atotup1(self,ltot, nabase):
     	
     	b=1+self.DV.zeta(nabase)
@@ -57,7 +57,7 @@ class photosythesis(object):
     	
     def _atotup2(self,ltot,nabase):
     	b=1-(1/self.DV.ExpKLcrit(ltot,nabase))
-    	c=1/(1-self.N0/nabase)
+    	c=1/self.remainingN(nabase)
     	d=self.DV.zeta(nabase)*exp(self.Kl*ltot)
     	
     	return(self.a*b*(1-1/((c+d)**0.5)))
@@ -81,7 +81,7 @@ class photosythesis(object):
     	a=self.An*(nabase-self.N0)
     	b=ltot-self.DV.Lcrit(ltot,nabase)
     	
-    	zetaFun=self.DV.zeta(nabase)*(1-(self.N0/nabase))
+    	zetaFun=self.DV.zeta(nabase)*self.remainingN)
     	
     	c=1+zetaFun*exp(self.Kl*ltot)
     	d=1+zetaFun*self.DV.ExpKLcrit(ltot,nabase)
@@ -97,8 +97,11 @@ class photosythesis(object):
     
     def Atot(self,*args):
     	return( self.convfactor * (self.atot(*args) - self.Rleaf * self.ntot(*args)) )
-	
-	
+		
+    def Aapt2(lai,ltot,nabase):
+    	return(Aa(lai,self.N.Na2(lai,ltot,nabase)))
+    	
+    
 """ References
     ==========
         McMurtrie RE, Dewar RC. New insights into carbon allocation by trees
