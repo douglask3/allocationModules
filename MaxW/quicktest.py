@@ -8,7 +8,7 @@ def printNewLine(txt): print("\n"+txt+":\t")
 
 def printNewLine(txt): print("\n"+txt+":\t")
 
-def when_Ltot_is_X_and_nabase__is_NaBase_Expect(x, vs, names, FUNs):
+def when_Ltot_is_X_and_nabase_is_NaBase_Expect(x, vs, names, FUNs):
     strng = "when ltot=" + str(x) + " and nabase=Nabase, Expect:"
     
     for i in range(len(vs)): strng = strng + "\n\t" + str(vs[i]) + " for " + names[i]
@@ -17,8 +17,8 @@ def when_Ltot_is_X_and_nabase__is_NaBase_Expect(x, vs, names, FUNs):
     for i in FUNs: print i(x, Nabase)
     
 def when_Ltot_is_5_and_05(vs5, vs05, *args):
-    when_Ltot_is_X_and_nabase__is_NaBase_Expect(5.0, vs5, *args)
-    when_Ltot_is_X_and_nabase__is_NaBase_Expect(0.5, vs05, *args)
+    when_Ltot_is_X_and_nabase_is_NaBase_Expect(5.0, vs5, *args)
+    when_Ltot_is_X_and_nabase_is_NaBase_Expect(0.5, vs05, *args)
 
 def lapply(x,FUN,*args):
     return( [FUN(i, *args) for i in x] )
@@ -90,9 +90,9 @@ from total_canopy_LAI import total_canopy_LAI
 
 cLAI=total_canopy_LAI(An, alpha, Kl, I0, N0, Rleaf, Convfactor)
 
-res=cLAI.Ltotopt(Nabase,Ntot)
-print res
-print canpyN.ntot(res,Nabase)
+Ltotopt=cLAI.Ltotopt(Nabase,Ntot)
+print Ltotopt
+print canpyN.ntot(res,Ltotopt)
 
 print cLAI.AtotVsNtot(Nabase,Ntot)
 
