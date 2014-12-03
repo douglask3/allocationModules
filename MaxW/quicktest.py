@@ -88,8 +88,12 @@ canpyN=total_canopy_N_content(An,alpha,Kl,I0,N0)
 	
 from total_canopy_LAI import total_canopy_LAI
 
-cLAI=total_canopy_LAI(An, alpha, Kl, I0, N0, ltotSoln)
+cLAI=total_canopy_LAI(An, alpha, Kl, I0, N0, Rleaf, Convfactor)
 
 res=cLAI.Ltotopt(Nabase,Ntot)
 print res
 print canpyN.ntot(res,Nabase)
+
+print cLAI.AtotVsNtot(Nabase,Ntot)
+
+print cLAI.AtotVsNtot(Nabase,0)
