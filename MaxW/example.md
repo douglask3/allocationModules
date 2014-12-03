@@ -27,7 +27,8 @@ def pltFunFromX(x,FUN,nabase,scale=1,*args):
 def when_Ltot_is_X_and_nabase__is_NaBase_Expect(x,vs,**FUNs):
     strng = "when ltot=" + str(x) + " and nabase=Nabase, Expect:"
     keys  = FUNs.keys()
-    
+    print(keys)
+    print("---")
     for i in range(len(vs)): strng = strng + "\n\t" + str(vs[i]) + " for " + keys[i]
     printNewLine(strng)
     
@@ -80,6 +81,10 @@ Daysperyear = 209       # Growing season length (days)
 Hoursperday = 14.14     # Daylight length (hrs)
 Convfactor  = Daysperyear*Hoursperday*60*60*12*1E-3
                         # i.e seconds per year
+                        
+## Some plotting variables:
+ltotX=arange(0,15,0.01)
+
 ```
 
 Photosynthesis Equations
@@ -119,29 +124,6 @@ when_Ltot_is_5_and_05([2.977 , 2.977, 3.597, 3.597],
                       Lcrit0=var._Lcrit0,Lcrit=var.Lcrit,ExpKLcrit0=var._ExpKLcrit0,ExpKLcrit=var.ExpKLcrit)
 
 
-
-
-
-
-printNewLine("Expect 3.597 for ExpKLcrit0 and ExpKLcrit")
-print var._ExpKLcrit0(ltot, nabase)
-print var.ExpKLcrit(ltot, nabase)
-
-
-printNewLine("Dimensionless variables when nabase=Nabase from paramter list and ltot=0.5")
-var=dimensionless_variables(An,alpha,Kl,I0,N0)
-nabase=Nabase
-ltot=0.5
-
-printNewLine("Expect -0.139 for Lcrit0")
-print var._Lcrit0(ltot, nabase)
-
-printNewLine("Expect 0 for Lcrit")
-print var.Lcrit(ltot, nabase)
-
-printNewLine("Expect 1 for ExpKLcrit")
-print var.ExpKLcrit(ltot, nabase)
-
 ```
 
 N balance
@@ -157,12 +139,10 @@ when_Ltot_is_5_and_05([0.019207],[0.001267],Ntot=canpyN.ntot)
 
 ltot=arange(0,15,0.01)
 
-ntot100 = [100*canpyN.ntot(x, Nabase) for x in ltot]
-Lcrit   = [canpyN.DV.Lcrit(x, Nabase) for x in ltot]
 
-plt.plot(ltot, ntot100,'r')
-plt.plot(ltot, Lcrit,'b:')
-plt.plot(ltot, ltot,'g--')
+pltFunFromX(ltotX, canpyN.ntot     , Nabase, 100, 'r')
+pltFunFromX(ltotX, canpyN.DV.Lcrit , Nabase, 1,   'b:')
+plt.plot(ltotX, ltotX,'g--')
 plt.axis([0, 15, 0, 12.5])
 plt.show()
 
@@ -182,7 +162,7 @@ when_Ltot_is_5_and_05([1.335E-5, 3.522E-6],[0.0     , 1.695E-6],
 
 when_Ltot_is_5_and_05([1.687E-5],[1.695E-6],atot=A.atot)
 
-ltot=arange(0,15,0.01)
+
 
 pltFunFromX(ltot,A.Atot,Nabase,1,'r')
 pltFunFromX(ltot,A.DV.Lcrit,Nabase,1,'b:')
