@@ -24,7 +24,7 @@ class total_canopy_N_content(object):
         c = 1.0 - (1.0 /self.DV.ExpKLcrit(ltot, nabase))
         d = nabase * ltot
         e = nabase - self.N0
-        f =self.DV.Lcrit(ltot,nabase)
+        f = self.DV.Lcrit(ltot,nabase)
         
         return( a *  b * c + d - e * f)
         
