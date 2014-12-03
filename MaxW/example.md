@@ -137,15 +137,12 @@ canpyN=total_canopy_N_content(An,alpha,Kl,I0,N0)
 
 when_Ltot_is_5_and_05([0.019207],[0.001267],Ntot=canpyN.ntot)
 
-ltot=arange(0,15,0.01)
-
 
 pltFunFromX(ltotX, canpyN.ntot     , Nabase, 100, 'r')
 pltFunFromX(ltotX, canpyN.DV.Lcrit , Nabase, 1,   'b:')
 plt.plot(ltotX, ltotX,'g--')
 plt.axis([0, 15, 0, 12.5])
 plt.show()
-
 ```
 
 Contributions to canopy photosynthesis *(mol/m2/s)*
@@ -162,10 +159,8 @@ when_Ltot_is_5_and_05([1.335E-5, 3.522E-6],[0.0     , 1.695E-6],
 
 when_Ltot_is_5_and_05([1.687E-5],[1.695E-6],atot=A.atot)
 
-
-
-pltFunFromX(ltot,A.Atot,Nabase,1,'r')
-pltFunFromX(ltot,A.DV.Lcrit,Nabase,1,'b:')
+pltFunFromX(ltotX,A.Atot,Nabase,1,'r')
+pltFunFromX(ltotX,A.DV.Lcrit,Nabase,1,'b:')
 plt.show()
 ```
 
