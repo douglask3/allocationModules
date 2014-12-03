@@ -11,18 +11,15 @@ this but of code soon:
 
 ```python
 import matplotlib.pyplot as plt
-from math import pi
-from numpy import arange
 %matplotlib inline
 
+from math  import pi
+from numpy import arange
+
 
 def printNewLine(txt): print("\n"+txt+":\t")
 
 def printNewLine(txt): print("\n"+txt+":\t")
-
-def pltFunFromX(x,FUN,nabase,scale=1,*args):
-    y = [scale*FUN(i, nabase) for i in x]
-    plt.plot(x,y,*args)
 
 def when_Ltot_is_X_and_nabase__is_NaBase_Expect(x, vs, names, FUNs):
     strng = "when ltot=" + str(x) + " and nabase=Nabase, Expect:"
@@ -35,6 +32,15 @@ def when_Ltot_is_X_and_nabase__is_NaBase_Expect(x, vs, names, FUNs):
 def when_Ltot_is_5_and_05(vs5, vs05, *args):
     when_Ltot_is_X_and_nabase__is_NaBase_Expect(5.0, vs5, *args)
     when_Ltot_is_X_and_nabase__is_NaBase_Expect(0.5, vs05, *args)
+
+def pltFunFromX(x,FUN,nabase,scale=1,*args,**args2):
+    y = [scale*FUN(i, nabase) for i in x]
+    plt.plot(x,y,*args,**args2)
+
+def finishPlot(loc='upper left',xlab='ltot'):
+    plt.legend(loc=loc)
+    plt.xlabel(xlab)
+    plt.show()
 ```
 
 Parameter values
@@ -136,12 +142,11 @@ canpyN=total_canopy_N_content(An,alpha,Kl,I0,N0)
 when_Ltot_is_5_and_05([0.019207],[0.001267],["Ntot"],[canpyN.ntot])
 
 
-pltFunFromX(ltotX, canpyN.ntot     , Nabase, 100, 'r')
-pltFunFromX(ltotX, canpyN.DV.Lcrit , Nabase, 1,   'b:')
-plt.plot(ltotX, ltotX,'g--')
+pltFunFromX(ltotX, canpyN.ntot     , Nabase, 100, 'r' , label='ntot (ltot,Nabase)*100')
+pltFunFromX(ltotX, canpyN.DV.Lcrit , Nabase, 1,   'b:', label='Lcrit(ltot,Nabase)')
+plt.plot(ltotX, ltotX,'g--', label='ltot')
 plt.axis([0, 15, 0, 12.5])
-
-plt.show()
+finishPlot()
 ```
 
 Contributions to canopy photosynthesis *(mol/m2/s)*
@@ -160,9 +165,9 @@ when_Ltot_is_5_and_05([1.335E-5, 3.522E-6],[0.0, 1.695E-6],
 
 when_Ltot_is_5_and_05([1.687E-5], [1.695E-6], ["atot"], [A.atot])
 
-pltFunFromX(ltotX,A.Atot,Nabase,1,'r')
-pltFunFromX(ltotX,A.DV.Lcrit,Nabase,1,'b:')
-plt.show()
+pltFunFromX(ltotX, A.Atot    , Nabase, 1, 'r' , label='atot (LTOT,NAbase)')
+pltFunFromX(ltotX, A.DV.Lcrit, Nabase, 1, 'b:', label='Lcrit(ltot,Nabase)')
+finishPlot()
 ```
 
 
