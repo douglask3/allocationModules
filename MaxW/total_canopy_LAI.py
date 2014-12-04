@@ -18,11 +18,11 @@ class total_canopy_LAI(object):
         self.Kl         = Kl
         self.I0         = I0
         self.N0         = N0
-        self.ntot	    = total_canopy_N_content(An, alpha, Kl, I0, N0).ntot
-    	self.Atot		= photosythesis( An, N0, Kl, Rleaf, I0, alpha, convfactor).Atot
-    	
+        self.ntot       = total_canopy_N_content(An, alpha, Kl, I0, N0).ntot
+        self.Atot       = photosythesis( An, N0, Kl, Rleaf, I0, alpha, convfactor).Atot
+        
     def _N(self, ltot, nabase, ntot0):
-    	return(self.ntot(ltot, nabase) - ntot0)
+        return(self.ntot(ltot, nabase) - ntot0)
     
     def Ltotopt(self, ntot, nabase, ltotsoln = 3):
         return( newton(self._N, ltotsoln, args = (nabase, ntot) ) )

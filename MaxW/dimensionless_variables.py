@@ -21,16 +21,16 @@ class dimensionless_variables(object):
         return(self.An*nabase / (self.alpha * self.Kl * self.I0))
     
     def remainingN(nabase):
-    	return(1-self.N0/nabase)
-    	
+        return(1-self.N0/nabase)
+        
     def zetaFun0(self,ltot,nabase):
-    	return(self.DV.zeta(nabase)*exp(self.Kl*ltot))
+        return(self.DV.zeta(nabase)*exp(self.Kl*ltot))
     
     def zetaFun1(self,ltot,nabase):
-    	return( (1+self.zetaFun0(ltot,nabase))**0.5 )
-    	
+        return( (1+self.zetaFun0(ltot,nabase))**0.5 )
+        
     def zetaFun2(self,ltot,nabase):
-    	return( (self.remainingN(nabase)+self.zetaFun0(ltot,nabase))**0.5 )
+        return( (self.remainingN(nabase)+self.zetaFun0(ltot,nabase))**0.5 )
     
     def ExpKlcrit_denominator(self,ltot,nabase):
         a = (1.0 - self.N0 / nabase)
@@ -53,7 +53,7 @@ class dimensionless_variables(object):
         ExpKLcrit0 = self._ExpKLcrit0(*args)
         Lcrit0     = self._Lcrit0(*args)
         return(1.0 if Lcrit0 < 0.0 else ExpKLcrit0)
-	
+    
 """ References
     ==========
         McMurtrie RE, Dewar RC. New insights into carbon allocation by trees
