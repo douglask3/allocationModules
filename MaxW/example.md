@@ -180,8 +180,8 @@ finishPlot()
 ntot2 = lapply(ltotX, canpyN.ntot, Nabase) 
 atot2 = lapply(ltotX, A.Atot     , Nabase) 
 
-plt.plot(ntot2, atot2, 'r' , label='atot(ltot,Nabase)')
-plt.plot(ntot2, ltot , 'b:' , label='ltot')
+plt.plot(ntot2, atot2, 'r'  , label='atot(ltot,Nabase)')
+plt.plot(ntot2, ltotX , 'b:', label='ltot')
 finishPlot(xlab='ntot(ltot,Nabase)')
 
 ```
