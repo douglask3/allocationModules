@@ -209,6 +209,10 @@ when_xxx_is_X_and_nabase_is_NaBase_Expect('ntot',Ntot, [2.304],
 when_xxx_is_X_and_nabase_is_NaBase_Expect('ntot',0, [0], ['AtotVsNtot'], [cLAI.AtotVsNtot])
 ```
 
+Optimal profiles of Leaf N (kg N m-2) and Aa (kgC m-2 yr-1)
+-----------------------------------------------------------
+
+
 Determine Utot (kg N/m2/y) from Rtot (kg C/m2/y):
 -------------------------------------------------
 
