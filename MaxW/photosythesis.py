@@ -17,6 +17,7 @@ class photosythesis(object):
         self.alpha      = alpha
         self.convfactor = convfactor
         self.DV         = dimensionless_variables(An, alpha, Kl, I0, N0)
+        self.zetaFun	= self.DV.zetaFun1
         self.a          = alpha*I0
         
         self.N          = total_canopy_N_content(An, alpha, Kl, I0, N0)
@@ -81,7 +82,7 @@ class photosythesis(object):
         a=self.An*(nabase-self.N0)
         b=ltot-self.DV.Lcrit(ltot,nabase)
         
-        zetaFun=self.DV.zeta(nabase)*self.remainingN
+        zetaFun=self.DV.zeta(nabase)*self.remainingN(nabase)
         
         c=1+zetaFun*exp(self.Kl*ltot)
         d=1+zetaFun*self.DV.ExpKLcrit(ltot,nabase)
