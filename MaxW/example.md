@@ -22,7 +22,7 @@ from numpy import arange
 def printNewLine(txt): print("\n"+txt+":\t")
 
 def printNewLine(txt): print("\n"+txt+":\t")
-
+    
 def when_xxx_is_X_and_nabase_is_NaBase_Expect(xxx,x, vs, names, FUNs):
     strng = "when " + xxx +"=" + str(x) + " and nabase=Nabase, Expect:"
     
@@ -34,8 +34,8 @@ def when_xxx_is_X_and_nabase_is_NaBase_Expect(xxx,x, vs, names, FUNs):
     return(y)
     
 def when_Ltot_is_5_and_05(vs5, vs05, *args):
-    when_Ltot_is_X_and_nabase_is_NaBase_Expect('ltot',5.0, vs5, *args)
-    when_Ltot_is_X_and_nabase_is_NaBase_Expect('ltot',0.5, vs05, *args)
+    when_xxx_is_X_and_nabase_is_NaBase_Expect('ltot',5.0, vs5, *args)
+    when_xxx_is_X_and_nabase_is_NaBase_Expect('ltot',0.5, vs05, *args)
 
 def lapply(x,FUN,*args):
     return( [FUN(i, *args) for i in x] )
