@@ -1,7 +1,8 @@
-from math import exp,log
-from photosythesis import photosythesis
-from total_canopy_N_content import total_canopy_N_content
-from scipy.optimize import minimize, newton
+from math                       import exp,log
+from photosythesis              import photosythesis
+from dimensionless_variables    import dimensionless_variables
+from total_canopy_N_content     import total_canopy_N_content
+from scipy.optimize             import minimize, newton
 
 __author__  = "Douglas Kelley"
 __email__   = "douglas.kelley@mq.edu.com"
@@ -24,6 +25,7 @@ class root_N_optimization(object):
         
         self.atot    	= photosythesis(An, N0, Kl, Rleaf, I0, alpha, convfactor).atot
         self.ntot    	= total_canopy_N_content(An, alpha, Kl, I0, N0).ntot
+        self.remainingN = dimensionless_variables(An, alpha, Kl, I0, N0).remainingN
         
     def utot(self, dmax, umax):
         return(umax*(1-exp(-dmax/2*D0))**2)

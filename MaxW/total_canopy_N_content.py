@@ -1,4 +1,5 @@
 from dimensionless_variables import dimensionless_variables
+from math                    import exp
 
 __author__  = "Douglas Kelley"
 __email__   = "douglas.kelley@mq.edu.com"
@@ -31,7 +32,7 @@ class total_canopy_N_content(object):
     def ntot(self,ltot, nabase):
         return(self._ntot(ltot, nabase) if self.DV.Lcrit(ltot, nabase) > 0 else ltot * nabase )
         
-    def Na2(lai,ltot,nabase):
+    def Na2(self,lai,ltot,nabase):
         Lcrit=self.DV.Lcrit(ltot,nabase)
         
         if lai>=Lcrit:

@@ -20,11 +20,11 @@ class dimensionless_variables(object):
     def zeta(self, nabase):    
         return(self.An*nabase / (self.alpha * self.Kl * self.I0))
     
-    def remainingN(nabase):
+    def remainingN(self,nabase):
         return(1-self.N0/nabase)
         
     def zetaFun0(self,ltot,nabase):
-        return(self.DV.zeta(nabase)*exp(self.Kl*ltot))
+        return(self.zeta(nabase)*exp(self.Kl*ltot))
     
     def zetaFun1(self,ltot,nabase):
         return( (1+self.zetaFun0(ltot,nabase))**0.5 )

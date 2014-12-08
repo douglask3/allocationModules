@@ -19,9 +19,9 @@ class photosythesis(object):
         self.DV         = dimensionless_variables(An, alpha, Kl, I0, N0)
         self.a          = alpha*I0
         
-        N               = total_canopy_N_content(An, alpha, Kl, I0, N0)
-        self.ntot       = N.ntot
-        self.remainingN = N.remainingN
+        self.N          = total_canopy_N_content(An, alpha, Kl, I0, N0)
+        self.ntot       = self.N.ntot
+        self.remainingN = dimensionless_variables(An, alpha, Kl, I0, N0).remainingN
     
     # This First section may well be removed when imported to Gday
     def Asat(self, na):    
@@ -81,7 +81,7 @@ class photosythesis(object):
         a=self.An*(nabase-self.N0)
         b=ltot-self.DV.Lcrit(ltot,nabase)
         
-        zetaFun=self.DV.zeta(nabase)*self.remainingN)
+        zetaFun=self.DV.zeta(nabase)*self.remainingN
         
         c=1+zetaFun*exp(self.Kl*ltot)
         d=1+zetaFun*self.DV.ExpKLcrit(ltot,nabase)
@@ -98,8 +98,8 @@ class photosythesis(object):
     def Atot(self,*args):
         return( self.convfactor * (self.atot(*args) - self.Rleaf * self.ntot(*args)) )
         
-    def Aapt2(lai,ltot,nabase):
-        return(Aa(lai,self.N.Na2(lai,ltot,nabase)))
+    def Aapt2(self,lai,ltot,nabase):
+        return(self.Aa(lai,self.N.Na2(lai,ltot,nabase)))
         
     
 """ References
