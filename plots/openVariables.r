@@ -1,16 +1,16 @@
 source("cfg.r")
 
 
-openVariables <- function(varIDs,...) {
-    lapply(varIDs,reopenVariable,...)
+openVariables <- function(filename,varIDs,...) {
+    lapply(varIDs,reopenVariable,filename,...)
 }
 
-reopenVariable <- function(varID,...) {
-    filename=paste(out_dir,'/',varID,'.csv',sep="")
+reopenVariable <- function(varID,filenameIn,...) {
+    filename=paste(out_dir,'/',varID,"-",filenameIn,sep="")
     
     if (file.exists(filename)) var=read.csv(filename)[[1]]
         else {
-            var=openVariable(varID,...)
+            var=openVariable(varID,filenameIn,...)
             write.csv(var,filename,row.names=FALSE)
         }
     return(var)
@@ -18,6 +18,12 @@ reopenVariable <- function(varID,...) {
 
 openVariable <- function(varID,filename,inData=TRUE) {
     dat=read.csv(paste(data_dir,filename,sep='/'),skip=3, stringsAsFactors=FALSE)
+    
+    if (!any(names(VarConstruction)==varID)) {
+        error("undefined variable")
+        cat(varID)
+    }
+        
     constuction=VarConstruction[[varID]]
     
     var = sapply(constuction,is.character)
@@ -33,4 +39,4 @@ openVariable <- function(varID,filename,inData=TRUE) {
 }
 
 ## Example
-#openVariables("leafAl","D1GDAYEUCAMBAVG.csv")
+#openVariables("D1GDAYEUCAMBAVG.csv","leafAl")
