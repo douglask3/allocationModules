@@ -8,4 +8,6 @@ ylab            = 'Allocation Fraction'
 
 snameCfg        = "plotAllocationCfg"
 
-plotBasicAnnualTS(experimentIDs,varIDs,ylab)
+#plotBasicAnnualTS(experimentIDs,varIDs,ylab)
+
+plotBasicSeasonaTS(experimentIDs,varIDs,ylab)
