@@ -4,6 +4,7 @@
 library("gitProjectExtras")
 setupProjectStructure()
 sourceAllLibs()
+options(stringsAsFactors = FALSE)
 
 #library("libs/install_and_source_library.r")
 
@@ -14,7 +15,7 @@ sourceAllLibs()
 ## 
 VarTitleInfo = rbind(
                 #Name               #Units
-    leadAl = c("Leaf Allocation"    , "%"),
+    leafAl = c("Leaf Allocation"    , "%"),
     woodAl = c("Wood Allocation"    , "%"),
     rootAl = c("Root Allocation"    , "%"))
     
@@ -25,5 +26,9 @@ VarConstruction = list(
     rootAl = c(100   , match.fun("*"), "GR" , match.fun("/"), "NPP" ),
     YEAR   = c("DOY" , match.fun("/"), 365  , match.fun("+"), 'YEAR'))
 
-#PlottingInformat =
+PlottingInformation = data.frame (
+    row.names=c("lineCol"        ,"lineType"),
+    leafAl =  c("green"          ,1),
+    woodAl =  c("brown"          ,1),
+    rootAl =  c("blue"           ,1))
 
