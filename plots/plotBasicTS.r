@@ -2,47 +2,55 @@ source("cfg.r")
 source("openVariables.r")
 graphics.off()
 
-filenames   = c("D1GDAYEUCAMBAVG.csv","D1GDAYEUCAMBAVG.csv")
-varIDs      = c("leafAl","woodAl","rootAl")
+experimentIDs   = c("control","maxGPP")
+varIDs          = c("leafAl","woodAl","rootAl")
+ylab            = 'Allocation Fraction'
 
-ylab        = 'Allocation Fraction'
-
-plotBasicTS <- function(filenames,varIDs,ylab) {
-    setupBaiscTS(filenames)
-    c(dat,PlottingInfo):=openBasicTS(filenames,varIDs)
+plotBasicTS <- function(experimentIDs,varIDs,ylab) {
+    setupBaiscTS(experimentIDs)
+    c(dat,VarPlottingInfo,titles):=openBasicTS(experimentIDs,varIDs)
     
-    plotBasicTSVariables(dat,varIDs,PlottingInfo,ylab)
+    plotBasicTSVariables(dat,varIDs,VarPlottingInfo,titles,ylab)
     
-    addBasicTSLegend(varIDs,PlottingInfo)
+    addBasicTSLegend(varIDs,VarPlottingInfo)
 }
 
-setupBaiscTS <- function(filenames) {
-    layoutMat=matrix(1:(length(filenames)+1),length(filenames)+1,1)
-    layout(layoutMat,heights=c(rep(1,length(filenames)),0.7))
+setupBaiscTS <- function(experimentIDs) {
+    layoutMat=matrix(1:(length(experimentIDs)+1),length(experimentIDs)+1,1)
+    layout(layoutMat,heights=c(rep(1,length(experimentIDs)),0.7))
 }
 
-openBasicTS <- function(filenames,varIDs) {
+openBasicTS <- function(experimentIDs,varIDs) {
+    filenames = ExperiementInfo['filename',experimentIDs]
+    
     dat = sapply(filenames,openVariables,c("YEAR",varIDs))
-    PlottingInfo= PlottingInformation[,varIDs]
-    return(list(dat,PlottingInfo))
+    VarPlottingInfo= PlottingInformation[,varIDs]
+    
+    titles=ExperiementInfo['Name',experimentIDs]
+    
+    return(list(dat,VarPlottingInfo,titles))
 }
 
-plotBasicTSVariables <- function (dat,varIDs,PlottingInfo,ylab) {
+plotBasicTSVariables <- function (dat,varIDs,VarPlottingInfo,titles,ylab) {
     
     plotRange=range(sapply(dat[-1,],range,na.rm=TRUE))
 
-    plotVariable <- function(dat) {
+    plotVariable <- function(dat,title) {
+        title = tail(dat,1)
+        dat   = head(dat,-1)
         plot(range(dat[[1]]),plotRange,type='n',xlab='year',ylab=ylab)
     
         plotLines <- function(y,col,lty)
             lines(dat[[1]],y,col=col,lty=lty)
         
     
-        mapply(plotLines,dat[-1],col=PlottingInfo['lineCol',],
-               lty=as.numeric(PlottingInfo['lineType',]))
+        mapply(plotLines,dat[-1],col=VarPlottingInfo['lineCol',],
+               lty=as.numeric(VarPlottingInfo['lineType',]))
+        
+        mtext(title,side=3)
     }
-
-    apply(dat,2,plotVariable)
+   
+    apply(rbind(dat,titles),2,plotVariable)
 }
 
 addBasicTSLegend <- function(varIDs,PlottingInfo) {
@@ -56,4 +64,4 @@ addBasicTSLegend <- function(varIDs,PlottingInfo) {
 }
 
 
-plotBasicTS(filenames,varIDs,ylab)
+plotBasicTS(experimentIDs,varIDs,ylab)

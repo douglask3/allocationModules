@@ -8,6 +8,15 @@ options(stringsAsFactors = FALSE)
 
 #library("libs/install_and_source_library.r")
 
+##########################################################################################
+## Variable Information                                                                 ##
+##########################################################################################
+filenames   = c("D1GDAYEUCAMBAVG.csv","D1GDAYEUCAMBAVG.csv")
+
+ExperiementInfo = data.frame(
+    row.names   = c('Name'          ,'filename'),
+    control     = c("Control"       , "D1GDAYEUCAMBAVG.csv"),
+    maxGPP      = c("Maximise GPP"  , "D1GDAYEUCAMBAVG.csv"))
 
 ##########################################################################################
 ## Variable Information                                                                 ##
@@ -27,7 +36,7 @@ VarConstruction = list(
     YEAR        = c("DOY" , match.fun("/"), 365  , match.fun("+"), 'YEAR'))
 
 PlottingInformation = data.frame (
-    row.names   =c("lineCol"        ,"lineType"),
+    row.names   =  c("lineCol"        ,"lineType"),
     leafAl      =  c("green"          ,1),
     woodAl      =  c("brown"          ,1),
     rootAl      =  c("blue"           ,1))
