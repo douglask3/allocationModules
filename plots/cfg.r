@@ -7,6 +7,9 @@ sourceAllLibs()
 sourceAllLibs("plottingLibs")
 options(stringsAsFactors = FALSE)
 
+midmonth    = c(15,46,74,105,135,166,196,227,258,288,319,349)
+mnthNames   = c('J','F','M','A','M','J','J','A','S','O','N','D') 
+
 #library("libs/install_and_source_library.r")
 
 ##########################################################################################
