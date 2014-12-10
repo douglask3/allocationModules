@@ -1,11 +1,13 @@
 plotBasicSeasonaTS <- function(experimentIDs,varIDs,ylab) {
-    setupBaiscAnnualTS(experimentIDs)
+    setupBaiscAnnualTS(experimentIDs,varIDs,"SEASONAL")
     
     c(dat,VarPlottingInfo,titles):=openBasicAnnualTS(experimentIDs,varIDs)
     dat=makeSeasonal(dat)
     
     plotBasicSeasolTSVariables(dat,varIDs,VarPlottingInfo,titles,ylab=ylab,xlab=' ')
     
+    plot.new()
+    addGitRev2plot.dev.off(paste(snameCfg,match.call.string(),sep="/"))
 }
 
 plotBasicSeasolTSVariables <- function (dat,varIDs,VarPlottingInfo,titles,...) {
@@ -19,7 +21,6 @@ plotBasicSeasolTSVariables <- function (dat,varIDs,VarPlottingInfo,titles,...) {
         y     = lapply(dat[-1],as.matrix)
         
         plot(range(x),plotRange,type='n',xaxt='n',...)
-        axis(at=midmonth,labels=mnthNames,side=1)
     
         plotLines <- function(y,col,lty) {
             for (i in 1:ceiling(nrow(y)/2)) {
@@ -38,8 +39,7 @@ plotBasicSeasolTSVariables <- function (dat,varIDs,VarPlottingInfo,titles,...) {
     }
    
     apply(rbind(dat,titles),2,plotVariable)
-
-
+    axis(at=midmonth,labels=mnthNames,side=1)
 }
 
 

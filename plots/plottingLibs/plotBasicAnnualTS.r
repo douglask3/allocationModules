@@ -1,18 +1,23 @@
 plotBasicAnnualTS <- function(experimentIDs,varIDs,ylab) {
-    setupBaiscAnnualTS(experimentIDs)
+    setupBaiscAnnualTS(experimentIDs,varIDs,"ANNUAL")
     
     c(dat,VarPlottingInfo,titles):=openBasicAnnualTS(experimentIDs,varIDs)
     
     plotBasicAnnualTSVariables(dat,varIDs,VarPlottingInfo,titles,ylab=ylab,xlab='Years')
     
     addBasicAnnualTSLegend(varIDs,VarPlottingInfo)
-    addGitRev2plot(paste(snameCfg,match.call.string(),sep="/"))
+    addGitRev2plot.dev.off(paste(snameCfg,match.call.string(),sep="/"))
 }
 
 
-setupBaiscAnnualTS <- function(experimentIDs) {
+setupBaiscAnnualTS <- function(experimentIDs,varIDs,name) {
+    name=paste(c("figs/",name,experimentIDs,varIDs,'.pdf'),collapse="-")
+    
+    pdf(name,height=3*(0.3+length(experimentIDs)),width=6)
+    
     layoutMat=matrix(1:(length(experimentIDs)+1),length(experimentIDs)+1,1)
-    layout(layoutMat,heights=c(rep(1,length(experimentIDs)),0.7))
+    layout(layoutMat,heights=c(rep(1,length(experimentIDs)),0.3))
+    par(mar=c(2,2,1,0))
 }
 
 openBasicAnnualTS <- function(experimentIDs,varIDs) {
@@ -40,7 +45,7 @@ plotBasicAnnualTSVariables <- function (dat,varIDs,VarPlottingInfo,titles,
         #browser()
         y     = lapply(dat[-1],as.matrix)
         
-        plot(range(dat[[1]]),plotRange,type='n',...)
+        plot(range(dat[[1]]),plotRange,type='n',xaxt='n',...)
     
         plotLines <- function(y,col,lty) {
             c(x,y):=find_moving_average(x,y,runningMean)
@@ -50,11 +55,13 @@ plotBasicAnnualTSVariables <- function (dat,varIDs,VarPlottingInfo,titles,
         mapply(plotLines,y,col=VarPlottingInfo['lineCol',],
                lty=as.numeric(VarPlottingInfo['lineType',]))
         
+        
         mtext(title,side=3)
         mtext(git,side=1,cex=0.33,adj=0.98,line=-2,col="#00000066")
     }
    
     apply(rbind(dat,titles),2,plotVariable)
+    axis(side=1)
 }
 
 addBasicAnnualTSLegend <- function(varIDs,PlottingInfo) {
