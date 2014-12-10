@@ -4,6 +4,7 @@
 library("gitProjectExtras")
 setupProjectStructure()
 sourceAllLibs()
+sourceAllLibs("plottingLibs")
 options(stringsAsFactors = FALSE)
 
 #library("libs/install_and_source_library.r")

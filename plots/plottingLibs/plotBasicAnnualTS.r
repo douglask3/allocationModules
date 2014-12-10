@@ -1,18 +1,10 @@
-source("cfg.r")
-source("openVariables.r")
-graphics.off()
-
-experimentIDs   = c("control","maxGPP")
-varIDs          = c("leafAl","woodAl","rootAl")
-ylab            = 'Allocation Fraction'
-
-plotBasicTS <- function(experimentIDs,varIDs,ylab) {
+plotBasicAnnualTS <- function(experimentIDs,varIDs,ylab) {
     setupBaiscTS(experimentIDs)
-    c(dat,VarPlottingInfo,titles):=openBasicTS(experimentIDs,varIDs)
+    c(dat,VarPlottingInfo,titles):=openBasicAnnualTS(experimentIDs,varIDs)
     
-    plotBasicTSVariables(dat,varIDs,VarPlottingInfo,titles,ylab)
+    plotBasicAnnualTSVariables(dat,varIDs,VarPlottingInfo,titles,ylab)
     
-    addBasicTSLegend(varIDs,VarPlottingInfo)
+    addBasicAnnualTSLegend(varIDs,VarPlottingInfo)
 }
 
 setupBaiscTS <- function(experimentIDs) {
@@ -20,7 +12,7 @@ setupBaiscTS <- function(experimentIDs) {
     layout(layoutMat,heights=c(rep(1,length(experimentIDs)),0.7))
 }
 
-openBasicTS <- function(experimentIDs,varIDs) {
+openBasicAnnualTS <- function(experimentIDs,varIDs) {
     filenames = ExperiementInfo['filename',experimentIDs]
     
     dat = sapply(filenames,openVariables,c("YEAR",varIDs))
@@ -31,7 +23,7 @@ openBasicTS <- function(experimentIDs,varIDs) {
     return(list(dat,VarPlottingInfo,titles))
 }
 
-plotBasicTSVariables <- function (dat,varIDs,VarPlottingInfo,titles,ylab,runningMean=365) {
+plotBasicAnnualTSVariables <- function (dat,varIDs,VarPlottingInfo,titles,ylab,runningMean=365) {
     
     plotRange=range(sapply(dat[-1,],range,na.rm=TRUE))
 
@@ -41,7 +33,6 @@ plotBasicTSVariables <- function (dat,varIDs,VarPlottingInfo,titles,ylab,running
         plot(range(dat[[1]]),plotRange,type='n',xlab='year',ylab=ylab)
     
         plotLines <- function(y,col,lty) {
-            browser()
             c(x,y):=find_moving_average(dat[[1]],y,runningMean)
             lines(x,y,col=col,lty=lty)
         }
@@ -55,7 +46,7 @@ plotBasicTSVariables <- function (dat,varIDs,VarPlottingInfo,titles,ylab,running
     apply(rbind(dat,titles),2,plotVariable)
 }
 
-addBasicTSLegend <- function(varIDs,PlottingInfo) {
+addBasicAnnualTSLegend <- function(varIDs,PlottingInfo) {
     legtits=apply(VarTitleInfo[,varIDs],2,paste,collapse=" ")
     
     plot.new()
@@ -64,6 +55,3 @@ addBasicTSLegend <- function(varIDs,PlottingInfo) {
            lty=as.numeric(PlottingInfo['lineType',]),horiz=TRUE)
 
 }
-
-
-plotBasicTS(experimentIDs,varIDs,ylab)
