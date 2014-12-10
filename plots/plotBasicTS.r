@@ -7,25 +7,48 @@ varIDs      = c("leafAl","woodAl","rootAl")
 
 ylab        = 'Allocation Fraction'
 
-layoutMat=matrix(1:(length(filenames)+1),length(filenames)+1,1)
-layout(layoutMat,heights=c(rep(1,length(filenames)),0.3))
-dat = sapply(filenames,openVariables,c("YEAR",varIDs))
-PlottingInfo= PlottingInformation[,varIDs]
-
-plotRange=range(sapply(dat[-1,],range,na.rm=TRUE))
-
-plotVariables <- function(dat) {
+plotBasicTS <- function(filenames,varIDs,ylab) {
+    setupBaiscTS(filenames)
+    c(dat,PlottingInfo):=openBasicTS(filenames,varIDs)
     
-    plot(range(dat[[1]]),plotRange,type='n',xlab='year',ylab=ylab)
+    plotBasicTSVariables(dat,varIDs,ylab)
     
-    plotLines <- function(y,col,lty)
-        lines(dat[[1]],y,col=col,lty=lty)
-        
-    
-    mapply(plotLines,dat[-1],col=PlottingInfo['lineCol',],lty=as.numeric(PlottingInfo['lineType',]))
-    
+    addBasicTSLegend(varIDs)
 }
 
-apply(dat,2,plotVariables)
+setupBaiscTS <- function(filenames) {
+    layoutMat=matrix(1:(length(filenames)+1),length(filenames)+1,1)
+    layout(layoutMat,heights=c(rep(1,length(filenames)),0.3))
+}
 
-browser()
+openBasicTS <- function(filenames,varIDs) {
+    dat = sapply(filenames,openVariables,c("YEAR",varIDs))
+    PlottingInfo= PlottingInformation[,varIDs]
+    return(list(dat,PlottingInfo))
+}
+
+plotBasicTSVariables <- function (dat,varIDs,ylab) {
+    
+    plotRange=range(sapply(dat[-1,],range,na.rm=TRUE))
+
+    plotVariable <- function(dat) {
+        plot(range(dat[[1]]),plotRange,type='n',xlab='year',ylab=ylab)
+    
+        plotLines <- function(y,col,lty)
+            lines(dat[[1]],y,col=col,lty=lty)
+        
+    
+        mapply(plotLines,dat[-1],col=PlottingInfo['lineCol',],lty=as.numeric(PlottingInfo['lineType',]))
+    }
+
+    apply(dat,2,plotVariable)
+}
+
+addBasicTSLegend <- function(varIDs) {
+
+    browser()
+
+}
+
+
+plotBasicTS(filenames,varIDs,ylab)
