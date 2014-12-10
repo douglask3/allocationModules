@@ -13,15 +13,17 @@ sourceAllLibs()
 ##########################################################################################
 ## 
 VarTitleInfo = rbind(
-                #Name               #Units      #ID
+                #Name               #Units
     leadAl = c("Leaf Allocation"    , "%"),
     woodAl = c("Wood Allocation"    , "%"),
     rootAl = c("Root Allocation"    , "%"))
     
  
 VarConstruction = list(
-    leafAl = c(100 , match.fun("*"), "GL", match.fun("/"), "NPP"),
-    woodAl = c(100 , match.fun("*"), "GW", match.fun("/"), "NPP"),
-    rootAl = c(100 , match.fun("*"), "GR", match.fun("/"), "NPP"))
+    leafAl = c(100   , match.fun("*"), "GL" , match.fun("/"), "NPP" ),
+    woodAl = c(100   , match.fun("*"), "GW" , match.fun("/"), "NPP" ),
+    rootAl = c(100   , match.fun("*"), "GR" , match.fun("/"), "NPP" ),
+    YEAR   = c("DOY" , match.fun("/"), 365  , match.fun("+"), 'YEAR'))
 
 #PlottingInformat =
+
