@@ -38,7 +38,8 @@ plotBasicTSVariables <- function (dat,varIDs,PlottingInfo,ylab) {
             lines(dat[[1]],y,col=col,lty=lty)
         
     
-        mapply(plotLines,dat[-1],col=PlottingInfo['lineCol',],lty=as.numeric(PlottingInfo['lineType',]))
+        mapply(plotLines,dat[-1],col=PlottingInfo['lineCol',],
+               lty=as.numeric(PlottingInfo['lineType',]))
     }
 
     apply(dat,2,plotVariable)
@@ -51,7 +52,6 @@ addBasicTSLegend <- function(varIDs,PlottingInfo) {
     legend(x='top',legend=legtits,
            col=as.character(PlottingInfo['lineCol',]),
            lty=as.numeric(PlottingInfo['lineType',]),horiz=TRUE)
-    browser()
 
 }
 
