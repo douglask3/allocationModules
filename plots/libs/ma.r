@@ -9,11 +9,9 @@ ma.min <- function(x,n=12) {
 }
 
 find_moving_average <- function(x,y,n=12,na.rm=TRUE,...) {
-	
 	if (na.rm) y=gapfill(y)
-	
 	if (is.null(dim(y))) y=as.matrix(y)
-	browser()
+	
 	y=apply(y,2,ma,n,...)
 	
 	ns=ceiling(n/2)-1
