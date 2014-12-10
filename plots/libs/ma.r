@@ -8,8 +8,12 @@ ma.min <- function(x,n=12) {
 	return(y)
 }
 
-find_moving_average <- function(x,y,n=12,...) {
+find_moving_average <- function(x,y,n=12,na.rm=TRUE,...) {
+	
+	if (na.rm) y=gapfill(y)
+	
 	if (is.null(dim(y))) y=as.matrix(y)
+	browser()
 	y=apply(y,2,ma,n,...)
 	
 	ns=ceiling(n/2)-1
@@ -31,4 +35,12 @@ find_moving_average_raster <- function(x,y,nn=12,...) {
 	x=x[ns:ne]
 	
 	return(list(x,z))
+}
+
+gapfill <- function(y) {
+    x=1:length(y)
+    test=is.na(y)
+    c(xout,yout):=approx(x[!test],y[!test],x[test])
+    y[xout]=yout
+    return(y)
 }
