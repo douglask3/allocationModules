@@ -31,7 +31,7 @@ openBasicTS <- function(experimentIDs,varIDs) {
     return(list(dat,VarPlottingInfo,titles))
 }
 
-plotBasicTSVariables <- function (dat,varIDs,VarPlottingInfo,titles,ylab) {
+plotBasicTSVariables <- function (dat,varIDs,VarPlottingInfo,titles,ylab,runningMean=365) {
     
     plotRange=range(sapply(dat[-1,],range,na.rm=TRUE))
 
@@ -40,9 +40,11 @@ plotBasicTSVariables <- function (dat,varIDs,VarPlottingInfo,titles,ylab) {
         dat   = head(dat,-1)
         plot(range(dat[[1]]),plotRange,type='n',xlab='year',ylab=ylab)
     
-        plotLines <- function(y,col,lty)
-            lines(dat[[1]],y,col=col,lty=lty)
-        
+        plotLines <- function(y,col,lty) {
+            browser()
+            c(x,y):=find_moving_average(dat[[1]],y,runningMean)
+            lines(x,y,col=col,lty=lty)
+        }
     
         mapply(plotLines,dat[-1],col=VarPlottingInfo['lineCol',],
                lty=as.numeric(VarPlottingInfo['lineType',]))
