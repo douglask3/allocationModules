@@ -13,22 +13,22 @@ options(stringsAsFactors = FALSE)
 ## Variable Information                                                                 ##
 ##########################################################################################
 ## 
-VarTitleInfo = rbind(
-                #Name               #Units
-    leafAl = c("Leaf Allocation"    , "%"),
-    woodAl = c("Wood Allocation"    , "%"),
-    rootAl = c("Root Allocation"    , "%"))
+VarTitleInfo = data.frame(
+    row.names   = c('Name'               ,'Units'),
+    leafAl      = c("Leaf Allocation"    , "%"),
+    woodAl      = c("Wood Allocation"    , "%"),
+    rootAl      = c("Root Allocation"    , "%"))
     
  
 VarConstruction = list(
-    leafAl = c(100   , match.fun("*"), "GL" , match.fun("/"), "NPP" ),
-    woodAl = c(100   , match.fun("*"), "GW" , match.fun("/"), "NPP" ),
-    rootAl = c(100   , match.fun("*"), "GR" , match.fun("/"), "NPP" ),
-    YEAR   = c("DOY" , match.fun("/"), 365  , match.fun("+"), 'YEAR'))
+    leafAl      = c(100   , match.fun("*"), "GL" , match.fun("/"), "NPP" ),
+    woodAl      = c(100   , match.fun("*"), "GW" , match.fun("/"), "NPP" ),
+    rootAl      = c(100   , match.fun("*"), "GR" , match.fun("/"), "NPP" ),
+    YEAR        = c("DOY" , match.fun("/"), 365  , match.fun("+"), 'YEAR'))
 
 PlottingInformation = data.frame (
-    row.names=c("lineCol"        ,"lineType"),
-    leafAl =  c("green"          ,1),
-    woodAl =  c("brown"          ,1),
-    rootAl =  c("blue"           ,1))
+    row.names   =c("lineCol"        ,"lineType"),
+    leafAl      =  c("green"          ,1),
+    woodAl      =  c("brown"          ,1),
+    rootAl      =  c("blue"           ,1))
 

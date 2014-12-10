@@ -11,14 +11,14 @@ plotBasicTS <- function(filenames,varIDs,ylab) {
     setupBaiscTS(filenames)
     c(dat,PlottingInfo):=openBasicTS(filenames,varIDs)
     
-    plotBasicTSVariables(dat,varIDs,ylab)
+    plotBasicTSVariables(dat,varIDs,PlottingInfo,ylab)
     
-    addBasicTSLegend(varIDs)
+    addBasicTSLegend(varIDs,PlottingInfo)
 }
 
 setupBaiscTS <- function(filenames) {
     layoutMat=matrix(1:(length(filenames)+1),length(filenames)+1,1)
-    layout(layoutMat,heights=c(rep(1,length(filenames)),0.3))
+    layout(layoutMat,heights=c(rep(1,length(filenames)),0.7))
 }
 
 openBasicTS <- function(filenames,varIDs) {
@@ -27,7 +27,7 @@ openBasicTS <- function(filenames,varIDs) {
     return(list(dat,PlottingInfo))
 }
 
-plotBasicTSVariables <- function (dat,varIDs,ylab) {
+plotBasicTSVariables <- function (dat,varIDs,PlottingInfo,ylab) {
     
     plotRange=range(sapply(dat[-1,],range,na.rm=TRUE))
 
@@ -44,8 +44,13 @@ plotBasicTSVariables <- function (dat,varIDs,ylab) {
     apply(dat,2,plotVariable)
 }
 
-addBasicTSLegend <- function(varIDs) {
-
+addBasicTSLegend <- function(varIDs,PlottingInfo) {
+    legtits=apply(VarTitleInfo[,varIDs],2,paste,collapse=" ")
+    
+    plot.new()
+    legend(x='top',legend=legtits,
+           col=as.character(PlottingInfo['lineCol',]),
+           lty=as.numeric(PlottingInfo['lineType',]),horiz=TRUE)
     browser()
 
 }
