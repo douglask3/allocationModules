@@ -1,10 +1,12 @@
 plotBasicAnnualTS <- function(experimentIDs,varIDs,ylab) {
     setupBaiscTS(experimentIDs)
+    
     c(dat,VarPlottingInfo,titles):=openBasicAnnualTS(experimentIDs,varIDs)
     
     plotBasicAnnualTSVariables(dat,varIDs,VarPlottingInfo,titles,ylab)
     
     addBasicAnnualTSLegend(varIDs,VarPlottingInfo)
+    addGitRev2plot(paste(snameCfg,match.call.string(),sep="/"))
 }
 
 setupBaiscTS <- function(experimentIDs) {
@@ -19,7 +21,6 @@ openBasicAnnualTS <- function(experimentIDs,varIDs) {
     VarPlottingInfo= PlottingInformation[,varIDs]
     
     titles=ExperiementInfo['Name',experimentIDs]
-    
     return(list(dat,VarPlottingInfo,titles))
 }
 
@@ -30,17 +31,23 @@ plotBasicAnnualTSVariables <- function (dat,varIDs,VarPlottingInfo,titles,ylab,r
     plotVariable <- function(dat,title) {
         title = tail(dat,1)
         dat   = head(dat,-1)
+        git   = colnames(dat[[1]])
+        x     = dat[[1]][[1]]
+        #browser()
+        y     = lapply(dat[-1],as.matrix)
+        
         plot(range(dat[[1]]),plotRange,type='n',xlab='year',ylab=ylab)
     
         plotLines <- function(y,col,lty) {
-            c(x,y):=find_moving_average(dat[[1]],y,runningMean)
+            c(x,y):=find_moving_average(x,y,runningMean)
             lines(x,y,col=col,lty=lty)
         }
     
-        mapply(plotLines,dat[-1],col=VarPlottingInfo['lineCol',],
+        mapply(plotLines,y,col=VarPlottingInfo['lineCol',],
                lty=as.numeric(VarPlottingInfo['lineType',]))
         
         mtext(title,side=3)
+        mtext(git,side=1,cex=0.33,adj=0.98,line=-2,col="#00000066")
     }
    
     apply(rbind(dat,titles),2,plotVariable)
