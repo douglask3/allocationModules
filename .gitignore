@@ -17,3 +17,5 @@
 *.ipynb
 *.html
 
+#Temp ignore
+runGday/DUKE
