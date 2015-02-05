@@ -17,5 +17,9 @@
 *.ipynb
 *.html
 
+paramerter files
+=============*==
+*params*
+
 #Temp ignore
-runGday/DUKE
+runGday/DUKE/*
