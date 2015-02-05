@@ -224,13 +224,14 @@ def main(experiment_id, site, SPIN_UP=True, POST_INDUST=True, alloc_model = "FIX
         # copy spunup base files to make two new experiment files
         
         
-        shutil.copy(os.path.join(param_dir, "%s_%s_model_spunup.cfg" % (experiment_id, site)),
-                    os.path.join(param_dir, "%s_%s_model_spunup_adj.cfg" % (experiment_id, site)))
+        shutil.copy(os.path.join(param_dir, "%s_%s_%s_model_spunup.cfg" % (experiment_id, site, alloc_model)),
+                    os.path.join(param_dir, "%s_%s_%s_model_spunup_adj.cfg" % (experiment_id, site, alloc_model)))
 
-        itag = "%s_%s_model_spunup_adj" % (experiment_id, site)
-        otag = "%s_%s_model_indust" % (experiment_id, site)
+        itag = "%s_%s_%s_model_spunup_adj" % (experiment_id, site,alloc_model)
+        otag = "%s_%s_%s_model_indust" % (experiment_id, site, alloc_model)
         mtag = "%s_met_data_industrial_to_present_1750_2011.csv" % (site)
         out_fn = itag + "_indust.out"
+        #import pdb; pdb.set_trace()
         out_param_fname = os.path.join(param_dir, otag + ".cfg")
         cfg_fname = os.path.join(param_dir, itag + ".cfg")
         met_fname = os.path.join(met_dir, mtag)
@@ -256,7 +257,7 @@ if __name__ == "__main__":
 
     experiment_id = "FACE"
     site          = "EUC"
-    alloc_models  = ["FIXED", "ALLOMETRIC", "MAXIMIZEGPP"]
+    alloc_models  = ["FIXED", "ALLOMETRIC", "MAXIMIZEGPP","MAXIMIZEWOOD"]
     for alloc_model in alloc_models:
         main(experiment_id, site, SPIN_UP=True, POST_INDUST=True, alloc_model = alloc_model)
     

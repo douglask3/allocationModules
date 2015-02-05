@@ -16,7 +16,7 @@ __author__  = "Martin De Kauwe"
 __version__ = "1.0 (14.12.2014)"
 __email__   = "mdekauwe@gmail.com"
 
-def main(experiment_id, site, treatment, exp, alloc_model = fixed ):
+def main(experiment_id, site, treatment, exp, alloc_model = "fixed" ):
     
     # dir names
     base_dir = os.path.dirname(os.getcwd())
@@ -27,7 +27,7 @@ def main(experiment_id, site, treatment, exp, alloc_model = fixed ):
     shutil.copy(os.path.join(param_dir, "%s_%s_model_indust.cfg" % (experiment_id, site)),
                 os.path.join(param_dir, "%s_%s_model_indust_adj_%s.cfg" % (experiment_id, site, exp)))
 
-    itag = "%s_%s_%s_model_indust_adj_%s" % (experiment_id, site, alloc_model, exp)
+    itag = "%s_%s_model_indust_adj_%s" % (experiment_id, site, exp)
     otag = "%s_%s_%s_simulation_%s" % (experiment_id, site, alloc_model, exp)
     mtag = "%s_met_data_%s_%s_co2.csv" % (site, treatment, exp)
     out_fn = "D1GDAY%s%s%s%s.csv" % (site, alloc_model, treatment.upper(), exp.upper())
@@ -46,6 +46,7 @@ def main(experiment_id, site, treatment, exp, alloc_model = fixed ):
                      "out_fname": "%s" % (out_fname),
                      
                      # control
+                     "alloc_model": alloc_model,
                      "print_options": "daily",
                  
                     }
@@ -66,7 +67,7 @@ if __name__ == "__main__":
     
     experiment_id = "FACE"
     site = "EUC"
-    alloc_models  = ["FIXED", "ALLOMETRIC", "MAXIMIZEGPP"]
+    alloc_models  = ["FIXED", "ALLOMETRIC", "MAXIMIZEGPP","MAXIMIZEWOOD"]
     
     for alloc_model in alloc_models:
         # Ambient
@@ -76,14 +77,5 @@ if __name__ == "__main__":
         # Elevated
         main(experiment_id, site, treatment="ele", exp="avg", alloc_model=alloc_model)
         main(experiment_id, site, treatment="ele", exp="var", alloc_model=alloc_model)
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
