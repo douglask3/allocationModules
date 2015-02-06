@@ -15,12 +15,14 @@ mnthNames   = c('J','F','M','A','M','J','J','A','S','O','N','D')
 ##########################################################################################
 ## Variable Information                                                                 ##
 ##########################################################################################
-filenames   = c("D1GDAYEUCAMBAVG.csv","D1GDAYEUCAMBAVG.csv")
+data_dir        = 	"~/Documents/allocationModules/runGday/EucFace/outputs/"
 
 ExperiementInfo = data.frame(
     row.names   = c('Name'          ,'filename'),
-    control     = c("Control"       , "D1GDAYEUCAMBAVG.csv"),
-    maxGPP      = c("Maximise GPP"  , "D1GDAYEUCAMBAVG.csv"))
+    fixed       = c("Fixed"         , "D1GDAYEUCFIXEDAMBVAR.csv"),
+    allocation  = c("ALLOCATION"    , "D1GDAYEUCALLOMETRICAMBVAR.csv"),
+    maxGPP      = c("Maximise GPP"  , "D1GDAYEUCMAXIMIZEGPPAMBVAR.csv"),
+    maxWOOD     = c("Maximise Wood" , "D1GDAYEUCMAXIMIZEWOODAMBVAR.csv"))
 
 ##########################################################################################
 ## Variable Information                                                                 ##
