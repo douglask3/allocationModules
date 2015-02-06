@@ -2,7 +2,7 @@ source("cfg.r")
 source("openVariables.r")
 graphics.off()
 
-experimentIDs   = c("control","maxGPP")
+experimentIDs   = colnames(ExperiementInfo)
 varIDs          = c("leafAl","woodAl","rootAl")
 ylab            = 'Allocation Fraction'
 
