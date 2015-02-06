@@ -9,7 +9,7 @@ addGitRev2plot <- function(additional=NULL) {
     if (!is.null(additional)) mtestStandard(additional)
 }
 
-addGitRev2plot.dev.off <- function() {
-    addGitRev2plot()
+addGitRev2plot.dev.off <- function(...) {
+    addGitRev2plot(...)
     dev.off()
 }
