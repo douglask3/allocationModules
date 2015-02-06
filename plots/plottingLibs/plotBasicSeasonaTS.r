@@ -17,11 +17,11 @@ plotBasicSeasolTSVariables <- function (dat,varIDs,VarPlottingInfo,titles,...) {
     plotVariable <- function(dat,title) {
         title = tail(dat,1)[[1]]
         dat   = head(dat,-1)
+        
         x     = dat[[1]]
         y     = lapply(dat[-1],as.matrix)
-        
         plot(range(x),plotRange,type='n',xaxt='n',...)
-    
+       
         plotLines <- function(y,col,lty) {
             for (i in 1:ceiling(nrow(y)/2)) {
                 y1=y[i,]
@@ -30,32 +30,31 @@ plotBasicSeasolTSVariables <- function (dat,varIDs,VarPlottingInfo,titles,...) {
             }
             lines(x,y[round(nrow(y)/2),],col=col,lty=lty)
         }
-    
+        
         mapply(plotLines,y,col=VarPlottingInfo['lineCol',],
                lty=as.numeric(VarPlottingInfo['lineType',]))
-        
+    
         mtext(title,side=3)
+        
         #mtext(git,side=1,cex=0.33,adj=0.98,line=-2,col="#00000066")
     }
-   
+    
     apply(rbind(dat,titles),2,plotVariable)
     axis(at=midmonth,labels=mnthNames,side=1)
 }
 
-
-
 makeSeasonal <- function(dat,yrLength=365) {
     days=1:yrLength
-    nyrs=floor(length(dat[[1]][[1]])/yrLength)
-   
+    nyrs=floor(length(dat[[1]])/yrLength)
     
     convert2Seasonal <- function(dat) {
-         x=sapply(1:yrLength,function(i) dat[[1]][seq(i,yrLength*nyrs,by=yrLength)])
-         qs=apply(x,2,quantile,c(0,0.25,0.5,0.75,1),na.rm=TRUE)
+         x=sapply(1:yrLength,function(i) dat[seq(i,yrLength*nyrs,by=yrLength)])
+         qs=apply(x,2,quantile,c(0.1,0.25,0.5,0.5,0.75,0.9),na.rm=TRUE)
     }
     
     out=lapply(dat[-1,],convert2Seasonal)
     dat[-1,]=matrix(out,nrow(dat[-1,]))
-    for (i in 1:2) dat[1,i]=list(1:365)
+
+    for (i in 1:ncol(dat)) dat[1,i]=list(1:365)
     return(dat)
 }

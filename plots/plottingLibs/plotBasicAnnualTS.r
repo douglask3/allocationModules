@@ -41,7 +41,7 @@ plotBasicAnnualTSVariables <- function (dat,varIDs,VarPlottingInfo,titles,
         title = tail(dat,1)
         dat   = head(dat,-1)
         git   = colnames(dat[[1]])
-        x     = dat[[1]][[1]]
+        x     = dat[[1]]
         #browser()
         y     = lapply(dat[-1],as.matrix)
         
