@@ -1,4 +1,4 @@
-plotBasicSeasonaTS <- function(experimentIDs,varIDs,ylab) {
+plotBasicSeasonalTS <- function(experimentIDs,varIDs,ylab) {
     setupBaiscAnnualTS(experimentIDs,varIDs,"SEASONAL")
     
     c(dat,VarPlottingInfo,titles):=openBasicAnnualTS(experimentIDs,varIDs)
