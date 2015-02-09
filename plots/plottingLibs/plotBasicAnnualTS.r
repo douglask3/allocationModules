@@ -1,11 +1,11 @@
-plotBasicAnnualTS <- function(experimentIDs,varIDs,ylab) {
-    setupBaiscAnnualTS(experimentIDs,varIDs,"ANNUAL")
+plotBasicAnnualTS <- function(modelIDs,experimentIDs,varIDs,ylab) {
+    setupBaiscAnnualTS(modelIDs,varIDs,"ANNUAL")
     
-    c(dat,VarPlottingInfo,titles):=openBasicAnnualTS(experimentIDs,varIDs)
+    c(dat,cols,ltys,titles):=openBasicAnnualTS(modelIDs,experimentIDs,varIDs)
     
-    plotBasicAnnualTSVariables(dat,varIDs,VarPlottingInfo,titles,ylab=ylab,xlab='Years')
+    plotBasicAnnualTSVariables(dat,varIDs,cols,ltys,titles,ylab=ylab,xlab='Years')
     
-    addBasicAnnualTSLegend(varIDs,VarPlottingInfo)
+    addBasicAnnualTSLegend(varIDs,experimentIDs,cols,ltys)
     addGitRev2plot.dev.off(paste(snameCfg,match.call.string(),sep="/"))
 }
 
@@ -20,56 +20,60 @@ setupBaiscAnnualTS <- function(experimentIDs,varIDs,name) {
     par(mar=c(2,2,1,0))
 }
 
-openBasicAnnualTS <- function(experimentIDs,varIDs) {
-    filenames = ExperiementInfo['filename',experimentIDs]
+openBasicAnnualTS <- function(modelIDs,experimentIDs,varIDs) {
+    dat     = openFiles(modelIDs,experimentIDs,varIDs)
+    cols    = PlottingInformation['lineCol' ,varIDs]
+    ltys    = PlottingInformation['lineType',experimentIDs]
+    titles  = ModelInfo['Name',modelIDs]
     
-    dat = sapply(filenames,openVariables,c("YEAR",varIDs))
-    VarPlottingInfo= PlottingInformation[,varIDs]
-    
-    titles=ExperiementInfo['Name',experimentIDs]
-    return(list(dat,VarPlottingInfo,titles))
+    return(list(dat,cols,ltys,titles))
 }
 
-plotRange <- function(dat) range(sapply(dat[-1,],range,na.rm=TRUE))
+plotRange <- function(dat) 
+    range(sapply(dat,function(i) sapply(i,function(j) range(unlist(j[-1]),na.rm=TRUE) )))
 
-plotBasicAnnualTSVariables <- function (dat,varIDs,VarPlottingInfo,titles,
+plotBasicAnnualTSVariables <- function (dat,varIDs,cols,ltys,titles,
                                         runningMean=365,...) {
     
     plotRange=plotRange(dat)
 
-    plotVariable <- function(dat,title) {
-        title = tail(dat,1)
-        dat   = head(dat,-1)
-        git   = colnames(dat[[1]])
-        x     = dat[[1]]
-        #browser()
-        y     = lapply(dat[-1],as.matrix)
+    plotVariables <- function(dat,title) {
+        #c(title,plotNew)  := tail(dat,2)
+        xRange=range(sapply(dat,function(i) range(i[1],na.rm=TRUE)))
         
-        plot(range(dat[[1]]),plotRange,type='n',xaxt='n',...)
+        plot(xRange,plotRange,type='n',xaxt='n',...)
+        
+        plotVariable <- function(dat,lty) {
+            git   = colnames(dat[[1]])
+            x     = dat[[1]]
+            y     = lapply(dat[-1],as.matrix)
     
-        plotLines <- function(y,col,lty) {
-            c(x,y):=find_moving_average(x,y,runningMean)
-            lines(x,y,col=col,lty=lty)
+            plotLines <- function(y,col,lty) {
+                c(x,y):=find_moving_average(x,y,runningMean)
+                lines(x,y,col=col,lty=as.numeric(lty))
+            }
+        
+            mapply(plotLines,y,col=cols,lty=lty)
         }
-    
-        mapply(plotLines,y,col=VarPlottingInfo['lineCol',],
-               lty=as.numeric(VarPlottingInfo['lineType',]))
-        
-        
+        mapply(plotVariable,dat,ltys)
         mtext(title,side=3)
-        mtext(git,side=1,cex=0.33,adj=0.98,line=-2,col="#00000066")
+        #mtext(git,side=1,cex=0.33,adj=0.98,line=-2,col="#00000066")
     }
-   
-    apply(rbind(dat,titles),2,plotVariable)
+    
+    mapply(plotVariables,dat,titles)
+    #apply(rbind(dat,titles,plotNew),2,)
     axis(side=1)
 }
 
-addBasicAnnualTSLegend <- function(varIDs,PlottingInfo) {
-    legtits=apply(VarTitleInfo[,varIDs],2,paste,collapse=" ")
+addBasicAnnualTSLegend <- function(varIDs,expermientIDs,cols,ltys) {
+    grabInfo <- function(IDs) apply(VarTitleInfo[,IDs],2,paste,collapse=" ")
+    legtitles1 = grabInfo(varIDs)
+    legtitles2 = grabInfo(expermientIDs)
+    legtitles  = paste(rep(legtitles1,each=length(experimentIDs)),rep(legtitles2,length(varIDs)))
     
     plot.new()
-    legend(x='top',legend=legtits,
-           col=as.character(PlottingInfo['lineCol',]),
-           lty=as.numeric(PlottingInfo['lineType',]),horiz=TRUE)
+    legend(x='top',legend=legtitles,
+           col=unlist(rep(cols,each=length(ltys))),
+           lty=as.numeric(unlist(rep(ltys,each=length(cols))),horiz=TRUE))
 
 }
