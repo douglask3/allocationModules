@@ -17,7 +17,7 @@ setupBaiscAnnualTS <- function(experimentIDs,varIDs,name) {
     
     layoutMat=matrix(1:(length(experimentIDs)+1),length(experimentIDs)+1,1)
     layout(layoutMat,heights=c(rep(1,length(experimentIDs)),0.3))
-    par(mar=c(2,2,1,0))
+    par(mar=c(2,2,1,0),oma=c(1,1,1,2))
 }
 
 openBasicAnnualTS <- function(modelIDs,experimentIDs,varIDs) {
