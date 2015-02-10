@@ -1,5 +1,5 @@
 plotBasicAnnualTS <- function(modelIDs,experimentIDs,varIDs,ylab) {
-    setupBaiscAnnualTS(modelIDs,varIDs,"ANNUAL")
+    setupBaiscAnnualTS(modelIDs,NULL,varIDs,"ANNUAL")
     
     c(dat,cols,ltys,titles):=openBasicAnnualTS(modelIDs,experimentIDs,varIDs)
     
@@ -10,14 +10,18 @@ plotBasicAnnualTS <- function(modelIDs,experimentIDs,varIDs,ylab) {
 }
 
 
-setupBaiscAnnualTS <- function(experimentIDs,varIDs,name) {
-    name=paste(c("figs/",name,experimentIDs,varIDs,'.pdf'),collapse="-")
+setupBaiscAnnualTS <- function(modelIDs,experimentIDs,varIDs,name,oma=c(1,1,1,2)) {
+    name=paste(c("figs/",name,modelIDs,varIDs,'.pdf'),collapse="-")
     
-    pdf(name,height=3*(0.3+length(experimentIDs)),width=6)
+    nheight=length(modelIDs)
+    if (!is.null(experimentIDs)) nwidth=length(experimentIDs) else nwidth=1
     
-    layoutMat=matrix(1:(length(experimentIDs)+1),length(experimentIDs)+1,1)
-    layout(layoutMat,heights=c(rep(1,length(experimentIDs)),0.3))
-    par(mar=c(2,2,1,0),oma=c(1,1,1,2))
+    pdf(name,height=3*(0.3+nheight),width=1+5*nwidth)
+    
+    layoutMat=matrix(1:(nheight*nwidth),nwidth,nheight)
+    layoutMat=rbind(t(layoutMat),rep(nheight*nwidth+1,nwidth))
+    layout(layoutMat,heights=c(rep(1,nheight),0.3))
+    par(mar=c(2,2,1,0),oma=oma)
 }
 
 openBasicAnnualTS <- function(modelIDs,experimentIDs,varIDs) {
