@@ -4,12 +4,16 @@ graphics.off()
 
 modelIDs        = colnames(ModelInfo)
 experimentIDs   = c('AMBVAR','ELEVAR')
-varIDs          = c("leafAl","woodAl","rootAl")
-ylab            = 'Allocation Fraction'
+ylab            = 'Allocation Fraction (%)'
 
 snameCfg        = "plotAllocationCfg"
 
-plotStandard <- function(FUN) FUN(modelIDs,experimentIDs,varIDs,ylab)
+plotAll <- function(varIDs) {
+    plotStandard <- function(FUN,varIDs) FUN(modelIDs,experimentIDs,varIDs,ylab)
 
-plotStandard(plotBasicAnnualTS)
-plotStandard(plotBasicSeasonalTS)
+    plotStandard(plotBasicAnnualTS,varIDs)
+    plotStandard(plotBasicSeasonalTS,varIDs)
+}
+
+plotAll(c("leafAl","woodAl","rootAl"))
+plotAll(c("NPP","GPP"))

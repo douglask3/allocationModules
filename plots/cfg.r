@@ -35,6 +35,8 @@ ExperimentInfo = c(AMBAVG="AMBAVG.csv",
 ## 
 VarTitleInfo = data.frame(
     row.names   = c('Name'                ,'Units'),
+    NPP         = c("NPP"                 , "gC/m2"),
+    GPP         = c("GPP"                 , "gC/m2"),
     leafAl      = c("Leaf Allocation"     , "%"),
     woodAl      = c("Wood Allocation"     , "%"),
     rootAl      = c("Root Allocation"     , "%"),
@@ -45,6 +47,8 @@ VarTitleInfo = data.frame(
     
  
 VarConstruction = list(
+    NPP         = c(1, match.fun("*"),"NPP"),
+    GPP         = c(1, match.fun("*"),"GPP"),
     leafAl      = c(100   , match.fun("*"), "GL" , match.fun("/"), "NPP" ),
     woodAl      = c(100   , match.fun("*"), "GW" , match.fun("/"), "NPP" ),
     rootAl      = c(100   , match.fun("*"), "GR" , match.fun("/"), "NPP" ),
@@ -52,6 +56,8 @@ VarConstruction = list(
 
 PlottingInformation = data.frame (
     row.names   =  c("lineCol"        ,"lineType"),
+    NPP         =  c("purple"         ,1),
+    GPP         =  c("forestgreen"    ,1),
     leafAl      =  c("green"          ,1),
     woodAl      =  c("brown"          ,1),
     rootAl      =  c("blue"           ,1),
