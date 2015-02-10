@@ -78,6 +78,6 @@ addBasicAnnualTSLegend <- function(varIDs,expermientIDs,cols,ltys) {
     plot.new()
     legend(x='top',legend=legtitles,
            col=unlist(rep(cols,each=length(ltys))),
-           lty=as.numeric(unlist(rep(ltys,each=length(cols))),horiz=TRUE))
+           lty=as.numeric(unlist(rep(ltys,length(cols)))),ncol=3,cex=0.8)
 
 }
