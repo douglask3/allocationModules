@@ -72,7 +72,7 @@ plotBasicAnnualTSVariables <- function (dat,varIDs,cols,ltys,titles,
 addBasicAnnualTSLegend <- function(varIDs,expermientIDs,cols,ltys) {
     grabInfo <- function(IDs) apply(VarTitleInfo[,IDs],2,paste,collapse=" ")
     legtitles1 = grabInfo(varIDs)
-    legtitles2 = grabInfo(expermientIDs)
+    legtitles2 = rev(grabInfo(expermientIDs))
     legtitles  = paste(rep(legtitles1,each=length(experimentIDs)),rep(legtitles2,length(varIDs)))
     
     plot.new()
