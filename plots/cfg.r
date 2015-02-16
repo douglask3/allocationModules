@@ -43,7 +43,11 @@ VarTitleInfo = data.frame(
     AMBAVG      = c("Ambient average CO2" ,  ""),
     ELEVAR      = c("Ambient CO2"         ,  ""),
     AMBAVG      = c("Elevated average CO2",  ""),
-    AMBVAR      = c("Elevated CO2"        ,  ""))
+    AMBVAR      = c("Elevated CO2"        ,  ""),
+    fixed       = c("Fixed"               ,  ""),
+    allocation  = c("Allocation"          ,  ""),
+    maxGPP      = c("Maximise GPP"        ,  ""),
+    maxWOOD     = c("Maximise Wood"       ,  ""))
     
  
 VarConstruction = list(
@@ -64,5 +68,9 @@ PlottingInformation = data.frame (
     AMBAVG      =  c("transparent"    ,2),
     AMBVAR      =  c("transparent"    ,1),
     ELEAVG      =  c("transparent"    ,3),
-    ELEVAR      =  c("transparent"    ,4))
+    ELEVAR      =  c("transparent"    ,4),
+    fixed       =  c("Black"          ,1),
+    allocation  =  c("Red"            ,1),
+    maxGPP      =  c("Blue"           ,1),
+    maxWOOD     =  c("green"          ,1))
 
