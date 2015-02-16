@@ -51,7 +51,7 @@ makeSeasonal <- function(dat,yrLength=365) {
     
     convert2Seasonal <- function(dat) {
          x=sapply(1:yrLength,function(i) dat[seq(i,yrLength*nyrs,by=yrLength)])
-         qs=apply(x,2,quantile,c(0.1,0.25,0.5,0.5,0.75,0.9),na.rm=TRUE)
+         qs=apply(x,2,quantile,c(0.25,0.5,0.5,0.75),na.rm=TRUE)
     }
     
     out=lapply(dat[-1],convert2Seasonal)
