@@ -8,12 +8,13 @@ ylab            = 'Allocation Fraction (%)'
 
 snameCfg        = "plotAllocationCfg"
 
-plotAll <- function(varIDs) {
-    plotStandard <- function(FUN,varIDs) FUN(modelIDs,experimentIDs,varIDs,ylab)
+plotAll <- function(varIDs,...) {
+    plotStandard <- function(FUN,varIDs) FUN(modelIDs,experimentIDs,varIDs,ylab,...)
 
     plotStandard(plotBasicAnnualTS,varIDs)
     plotStandard(plotBasicSeasonalTS,varIDs)
 }
 
-plotAll(c("leafAl","woodAl","rootAl"))
-plotAll(c("NPP","GPP"))
+#plotAll(c("leafAl","woodAl","rootAl"))
+#plotAll(c("NPP","GPP"))
+plotAll(c("NPP"),ratios=c("ELEVAR","AMBVAR"))
