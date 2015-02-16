@@ -1,19 +1,30 @@
-plotBasicAnnualTS <- function(modelIDs,experimentIDs,varIDs,ylab) {
-    setupBaiscAnnualTS(modelIDs,NULL,varIDs,"ANNUAL")
+plotBasicAnnualTS <- function(modelIDs,experimentIDs,varIDs,ylab,ratios=NULL,ratioCols=NULL) {
+    setupBaiscAnnualTS(modelIDs,NULL,ratios,varIDs,"ANNUAL")
     
     c(dat,cols,ltys,titles):=openBasicAnnualTS(modelIDs,experimentIDs,varIDs)
     
-    plotBasicAnnualTSVariables(dat,varIDs,cols,ltys,titles,ylab=ylab,xlab='Years')
+    if (!is.null(ratios)) {
+        rids=sapply(ratios, function(i) which(experimentIDs==i))
+        for (i in 1:length(dat)) for (j in 2:length(dat[[i]][[1]]))
+            dat[[i]][[1]][[j]]=dat[[i]][[rids[1]]][[j]]/dat[[i]][[rids[2]]][[j]]
+        
+        cols=PlottingInformation['lineCol' ,modelIDs]
+        plotOne=TRUE
+    } else plotOne=FALSE
     
-    addBasicAnnualTSLegend(varIDs,experimentIDs,cols,ltys)
+    plotBasicAnnualTSVariables(dat,varIDs,cols,ltys,
+                               titles,ylab=ylab,xlab='Years',plotOne=plotOne)
+    
+    if (is.null(ratios)) addBasicAnnualTSLegend(varIDs,experimentIDs,cols,ltys)
+        else addBasicAnnualTSLegend(modelIDs,NULL,cols,cex=0.67)
     addGitRev2plot.dev.off(paste(snameCfg,match.call.string(),sep="/"))
 }
 
 
-setupBaiscAnnualTS <- function(modelIDs,experimentIDs,varIDs,name,oma=c(1,1,1,2)) {
+setupBaiscAnnualTS <- function(modelIDs,experimentIDs,ratios=NULL,varIDs,name,oma=c(1,1,1,2)) {
     name=paste(c("figs/",name,modelIDs,varIDs,'.pdf'),collapse="-")
     
-    nheight=length(modelIDs)
+    if (is.null(ratios)) nheight=length(modelIDs) else nheight=1
     if (!is.null(experimentIDs)) nwidth=length(experimentIDs) else nwidth=1
     
     pdf(name,height=3*(0.3+nheight),width=1+5*nwidth)
@@ -33,21 +44,30 @@ openBasicAnnualTS <- function(modelIDs,experimentIDs,varIDs) {
     return(list(dat,cols,ltys,titles))
 }
 
-plotRange <- function(dat) 
-    range(sapply(dat,function(i) sapply(i,function(j) range(unlist(j[-1]),na.rm=TRUE) )))
-
-plotBasicAnnualTSVariables <- function (dat,varIDs,cols,ltys,titles,
-                                        runningMean=365,...) {
+plotRange <- function(dat,plotOne=FALSE,runningMean=NULL) {
     
-    plotRange=plotRange(dat)
+    range(sapply(dat,function(i) {
+            if (plotOne) i=i[1]
+            sapply(i,function(j) {
+                if (!is.null(runningMean))
+                    for (k in 2:length(j)) c(nn,j[[k]]):=find_moving_average(j[[1]],j[[k]],runningMean)
+                range(unlist(j[-1]),na.rm=TRUE)
+            })
+        }))
+        
+ }       
+        
+plotBasicAnnualTSVariables <- function (dat,varIDs,cols,ltys,titles,
+                                        runningMean=365,plotOne=FALSE,...) {
+    plotRange=plotRange(dat,plotOne,runningMean)
 
-    plotVariables <- function(dat,title) {
+    plotVariables <- function(dat,title,newPlot,...) {
         #c(title,plotNew)  := tail(dat,2)
         xRange=range(sapply(dat,function(i) range(i[1],na.rm=TRUE)))
         
-        plot(xRange,plotRange,type='n',xaxt='n',...)
+        if (newPlot) plot(xRange,plotRange,type='n',xaxt='n',...)
         
-        plotVariable <- function(dat,lty) {
+        plotVariable <- function(dat,lty,col) {
             git   = colnames(dat[[1]])
             x     = dat[[1]]
             y     = lapply(dat[-1],as.matrix)
@@ -56,28 +76,31 @@ plotBasicAnnualTSVariables <- function (dat,varIDs,cols,ltys,titles,
                 c(x,y):=find_moving_average(x,y,runningMean)
                 lines(x,y,col=col,lty=as.numeric(lty))
             }
-        
+            if (!is.na(col)) cols=col
             mapply(plotLines,y,col=cols,lty=lty)
         }
-        mapply(plotVariable,dat,ltys)
-        mtext(title,side=3)
+        
+        if (plotOne) plotVariable(dat[[1]],ltys[[1]],...) else
+            mapply(plotVariable,dat,ltys,...)
+        if (!plotOne) mtext(title,side=3)
         #mtext(git,side=1,cex=0.33,adj=0.98,line=-2,col="#00000066")
     }
     
-    mapply(plotVariables,dat,titles)
+    if (plotOne) mcol=cols else mcol=NaN
+    mapply(plotVariables,dat,titles,c(TRUE,rep(!plotOne,length(dat)-1)),col=mcol)
     #apply(rbind(dat,titles,plotNew),2,)
     axis(side=1)
 }
 
-addBasicAnnualTSLegend <- function(varIDs,expermientIDs,cols,ltys) {
+addBasicAnnualTSLegend <- function(varIDs,expermientIDs,cols,ltys=1,ncol=length(varIDs),cex=0.8) {
     grabInfo <- function(IDs) apply(VarTitleInfo[,IDs],2,paste,collapse=" ")
     legtitles1 = grabInfo(varIDs)
-    legtitles2 = rev(grabInfo(expermientIDs))
-    legtitles  = paste(rep(legtitles1,each=length(experimentIDs)),rep(legtitles2,length(varIDs)))
+    if (is.null(expermientIDs)) legtitles2="" else legtitles2 = rev(grabInfo(expermientIDs))
+    legtitles  = paste(rep(legtitles1,each=length(legtitles2)),rep(legtitles2,length(varIDs)))
     
     plot.new()
     legend(x='top',legend=legtitles,
            col=unlist(rep(cols,each=length(ltys))),
-           lty=as.numeric(unlist(rep(ltys,length(cols)))),ncol=3,cex=0.8)
+           lty=as.numeric(unlist(rep(ltys,length(cols)))),ncol=ncol,cex=cex)
 
 }
