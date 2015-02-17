@@ -15,6 +15,6 @@ plotAll <- function(varIDs,...) {
     plotStandard(plotBasicSeasonalTS,varIDs)
 }
 
-#plotAll(c("leafAl","woodAl","rootAl"))
-#plotAll(c("NPP","GPP"))
+plotAll(c("leafAl","woodAl","rootAl"))
+plotAll(c("NPP","GPP"))
 plotAll(c("NPP"),ratios=c("ELEVAR","AMBVAR"))
