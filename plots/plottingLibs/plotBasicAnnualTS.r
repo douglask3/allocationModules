@@ -1,16 +1,7 @@
 plotBasicAnnualTS <- function(modelIDs,experimentIDs,varIDs,ylab,ratios=NULL,ratioCols=NULL) {
     setupBaiscAnnualTS(modelIDs,NULL,ratios,varIDs,"ANNUAL")
     scall="plotBasicAnnualTS"
-    c(dat,cols,ltys,titles):=openBasicAnnualTS(modelIDs,experimentIDs,varIDs)
-    
-    if (!is.null(ratios)) {
-        rids=sapply(ratios, function(i) which(experimentIDs==i))
-        for (i in 1:length(dat)) for (j in 2:length(dat[[i]][[1]]))
-            dat[[i]][[1]][[j]]=dat[[i]][[rids[1]]][[j]]/dat[[i]][[rids[2]]][[j]]
-        
-        cols=PlottingInformation['lineCol' ,modelIDs]
-        plotOne=TRUE
-    } else plotOne=FALSE
+    c(dat,cols,ltys,titles,plotOne):=openBasicAnnualTS(modelIDs,experimentIDs,varIDs,ratios)
     
     plotBasicAnnualTSVariables(dat,varIDs,cols,ltys,
                                titles,ylab=ylab,xlab='Years',plotOne=plotOne)
@@ -25,7 +16,7 @@ setupBaiscAnnualTS <- function(modelIDs,experimentIDs,ratios=NULL,varIDs,name,om
     name=paste(c("figs/",name,modelIDs,varIDs,'.pdf'),collapse="-")
     
     if (is.null(ratios)) nheight=length(modelIDs) else nheight=1
-    if (!is.null(experimentIDs)) nwidth=length(experimentIDs) else nwidth=1
+    if (!is.null(experimentIDs) && is.null(ratios)) nwidth=length(experimentIDs) else nwidth=1
     
     pdf(name,height=3*(0.3+nheight),width=1+5*nwidth)
     
@@ -35,13 +26,22 @@ setupBaiscAnnualTS <- function(modelIDs,experimentIDs,ratios=NULL,varIDs,name,om
     par(mar=c(2,2,1,0),oma=oma)
 }
 
-openBasicAnnualTS <- function(modelIDs,experimentIDs,varIDs) {
+openBasicAnnualTS <- function(modelIDs,experimentIDs,varIDs,ratios=NULL) {
     dat     = openFiles(modelIDs,experimentIDs,varIDs)
     cols    = PlottingInformation['lineCol' ,varIDs]
     ltys    = PlottingInformation['lineType',experimentIDs]
     titles  = ModelInfo['Name',modelIDs]
     
-    return(list(dat,cols,ltys,titles))
+    if (!is.null(ratios)) {
+        rids=sapply(ratios, function(i) which(experimentIDs==i))
+        for (i in 1:length(dat)) for (j in 2:length(dat[[i]][[1]]))
+            dat[[i]][[1]][[j]]=dat[[i]][[rids[1]]][[j]]/dat[[i]][[rids[2]]][[j]]
+        
+        cols=PlottingInformation['lineCol' ,modelIDs]
+        plotOne=TRUE
+    } else plotOne=FALSE
+    
+    return(list(dat,cols,ltys,titles,plotOne))
 }
 
 plotRange <- function(dat,plotOne=FALSE,runningMean=NULL) {
