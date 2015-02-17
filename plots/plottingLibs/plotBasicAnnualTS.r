@@ -1,6 +1,6 @@
 plotBasicAnnualTS <- function(modelIDs,experimentIDs,varIDs,ylab,ratios=NULL,ratioCols=NULL) {
     setupBaiscAnnualTS(modelIDs,NULL,ratios,varIDs,"ANNUAL")
-    
+    scall="plotBasicAnnualTS"
     c(dat,cols,ltys,titles):=openBasicAnnualTS(modelIDs,experimentIDs,varIDs)
     
     if (!is.null(ratios)) {
@@ -17,7 +17,7 @@ plotBasicAnnualTS <- function(modelIDs,experimentIDs,varIDs,ylab,ratios=NULL,rat
     
     if (is.null(ratios)) addBasicAnnualTSLegend(varIDs,experimentIDs,cols,ltys)
         else addBasicAnnualTSLegend(modelIDs,NULL,cols,cex=0.67)
-    addGitRev2plot.dev.off(paste(snameCfg,match.call.string(),sep="/"))
+    addGitRev2plot.dev.off(paste(snameCfg,scall,sep="/"))
 }
 
 
@@ -83,6 +83,7 @@ plotBasicAnnualTSVariables <- function (dat,varIDs,cols,ltys,titles,
         if (plotOne) plotVariable(dat[[1]],ltys[[1]],...) else
             mapply(plotVariable,dat,ltys,...)
         if (!plotOne) mtext(title,side=3)
+       
         #mtext(git,side=1,cex=0.33,adj=0.98,line=-2,col="#00000066")
     }
     
