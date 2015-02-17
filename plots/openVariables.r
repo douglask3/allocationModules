@@ -1,8 +1,17 @@
 source("cfg.r")
 
+openFiles <- function(modelIDs,experimentIDs,varIDs) {
+    fname1    = ModelInfo['filename',modelIDs]
+    fname2    = ExperimentInfo[experimentIDs]
+    dat       = lapply(fname1,openVariables,fname2,c("YEAR",varIDs))
+}
 
-openVariables <- function(filename,varIDs,...) {
-    lapply(varIDs,reopenVariable,filename,...)
+openVariables <- function(fname1,fname2,varIDs,...) {
+    filenames = paste(fname1,fname2,sep="")
+    
+    openFile <- function(filename) lapply(varIDs,reopenVariable,filename,...)
+    
+    lapply(filenames,openFile)
 }
 
 reopenVariable <- function(varID,filenameIn,...) {

@@ -2,12 +2,19 @@ source("cfg.r")
 source("openVariables.r")
 graphics.off()
 
-experimentIDs   = colnames(ExperiementInfo)
-varIDs          = c("leafAl","woodAl","rootAl")
-ylab            = 'Allocation Fraction'
+modelIDs        = colnames(ModelInfo)
+experimentIDs   = c('AMBVAR','ELEVAR')
+ylab            = 'Allocation Fraction (%)'
 
 snameCfg        = "plotAllocationCfg"
 
-plotBasicAnnualTS(experimentIDs,varIDs,ylab)
+plotAll <- function(varIDs,...) {
+    plotStandard <- function(FUN,varIDs) FUN(modelIDs,experimentIDs,varIDs,ylab,...)
 
-plotBasicSeasonaTS(experimentIDs,varIDs,ylab)
+    plotStandard(plotBasicAnnualTS,varIDs)
+    plotStandard(plotBasicSeasonalTS,varIDs)
+}
+
+plotAll(c("leafAl","woodAl","rootAl"))
+plotAll(c("NPP","GPP"))
+plotAll(c("NPP"),ratios=c("ELEVAR","AMBVAR"))
