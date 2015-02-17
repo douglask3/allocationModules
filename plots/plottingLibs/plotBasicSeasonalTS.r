@@ -1,5 +1,5 @@
-plotBasicSeasonalTS <- function(modelIDs,experimentIDs,varIDs,ylab) {
-    setupBaiscAnnualTS(modelIDs,experimentIDs,varIDs,"SEASONAL",oma=c(1,4,1,2))
+plotBasicSeasonalTS <- function(modelIDs,experimentIDs,varIDs,ylab,ratios=NULL,ratioCols=NULL) {
+    setupBaiscAnnualTS(modelIDs,experimentIDs,ratios,varIDs,"SEASONAL",oma=c(1,4,1,2))
     
     c(dat,cols,ltys,titles):=openBasicAnnualTS(modelIDs,experimentIDs,varIDs)
     
@@ -8,7 +8,7 @@ plotBasicSeasonalTS <- function(modelIDs,experimentIDs,varIDs,ylab) {
     plotBasicSeasolTSVariables(dat,varIDs,cols,titles,ylab=ylab,xlab=' ')
     
     plot.new()
-    addGitRev2plot.dev.off(paste(snameCfg,match.call.string(),sep="/"))
+    addGitRev2plot.dev.off(paste(snameCfg,"plotBasicSeasonalTS",sep="/"))
 }
 
 plotBasicSeasolTSVariables <- function (dat,varIDs,cols,titles,...) {
