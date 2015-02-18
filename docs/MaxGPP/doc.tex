@@ -1,4 +1,20 @@
-\chapter{MaxW}
+\chapter{MaxGPP}
+As with \ref{Allometric} but with \ref{AleafAllometric} replaced with:
 
- More too come...
+\begin{equation}
+	\phi_{leaf}(A_{leaf}) = - GPP (GDAY_{d+1}(A_{leaf}))
+\end{equation}
 
+\begin{equation*}
+A_{leaf,d,optimal}=
+\begin{aligned}
+& \underset{A_{leaf}}{\text{minimize}}
+& & \phi_{leaf}(A_{leaf}) \\
+& \text{subject to}
+& & 0 \leq A_{leaf} \leq A_{leaf,max}
+\end{aligned}
+\end{equation*}
+
+\begin{equation}
+	A_{leaf}= \sum_{D}^{d=D-N} A_{leaf,d,optimal}
+\end{equation}

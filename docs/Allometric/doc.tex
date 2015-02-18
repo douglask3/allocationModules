@@ -1,4 +1,5 @@
 \chapter{Allometric}
+\label{Allometric}
 
 \section{Nitrogen/Water limitation}
 
@@ -20,10 +21,10 @@ The daily limitation  ($l$) is a minimum of $N_{lim}$ and fractional root water 
 Overall limitation ($L$) is the daily limiattion over the lifespan of roots ($\tau_{roots}$):
 
 \begin{equation}
-	L = \sum^\tau_{roots} l
+	L = \sum^{\tau_{roots}} l
 \end{equation}
 
-\subsection{Allocation}
+\section{Allocation}
 
 \begin{equation}
 	\frac{A_{root}=A_{root,max}*A_{root,min}}{A_{root,min}+(A_{root,max}-A_{root,min})*L}
@@ -66,6 +67,7 @@ Sensitivity parameter characterises how allocation fraction respond when the lea
 
 \begin{equation}
 	A_{leaf} = 0.5 + 0.5 \cdot \dfrac{(1-LS/LS_{target})}{A_{s}}
+	\label{AleafAllometric}
 \end{equation}
 
 where $A_{s}$ is a sensativity parameter figure out root allocation given available water \& nutrients hyperbola shape to allocation, this is adjusted below as we aim to maintain a functional balance.
