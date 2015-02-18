@@ -8,6 +8,7 @@
 \usepackage{graphicx}
 \usepackage{gitinfo2}
 \usepackage{pdfpages}
+\usepackage[nottoc,numbib]{tocbibind}
 
 \renewcommand{\chaptername}{Section}
 \setcounter{tocdepth}{5}
@@ -25,12 +26,12 @@
 
 \tableofcontents
 \listoffigures
-%\listoftables
+\listoftables
 
 \input{Introduction/doc.tex}
 \chapter{Changes required for allocation models}
-\input{Respiration/doc.tex}
-\input{Respiration/Limitation.tex}
+\input{requiredChanges/respirartion.tex}
+\input{requiredChanges/Limitation.tex}
 \chapter{Allocation Models}
 \input{Fixed/doc.tex}
 \input{Allometric/doc.tex}
