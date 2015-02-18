@@ -1,18 +1,28 @@
 \chapter{MaxW}
 
-Based on \citep{McMurtrie2013}. More too come...
+Based on \citep{McMurtrie2013}.
+
+As with MaxGPP 
 
 
-\section{Ross McMurtie Mcad file for \citep{McMurtrie2013}} 
+\begin{equation}
+	\phi(A_{leaf},A_{wood}) = - GPP (GDAY_{d+1}(A_{leaf},A_{wood}))
+\end{equation}
 
-\includepdf[pages=1-10,
-addtotoc={
-	1,subsection,2,Parameter List,MW1,
-	1, subsection,2,Photosythesis Equations,MW2,
-	1, subsection,2,Solution derived by Lagrange multiplier method ,MW3,
-	4, subsection,2,Determine Utot (kg N/m2/y) from Rtot (kg C/m2/y):,MW4,
-	8, subsection,2,Optimal annual C allocation,MW5},
-addtolist={
-	2,figure,{Contributions to canopy photosynthesis (mol/m2/s) from upper canopy (0<lai<Lcrit) (atotup) \& lower canopy (Ltot<lai<Lcrit) (atotlow):},MWF1
-},pagecommand={\pagestyle{fancy}},scale=0.9,offset=8mm 0mm]{MaxW/MaxW_2013_0411.pdf}  
 
+\begin{equation*}
+A_{leaf,d,optimal} \text{\&} A_{wood,d,optimal}=
+\begin{aligned}
+& \underset{A_{leaf}, A_{wood}}{\text{minimize}}
+& & \phi(A_{leaf,A_{wood}}) \\
+& \text{subject to}
+& & 0 \leq A_{leaf} \leq A_{leaf,max} \&
+& & 0 \leq A_{wood} \leq A_{leaf,max}
+\end{aligned}
+\end{equation*}
+
+\begin{equation}
+	A_{x}= \sum_{D}^{d=D-N} A_{x,d,optimal}
+\end{equation}
+
+where $x$ is $leaf$ or $wood$.
