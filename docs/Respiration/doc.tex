@@ -1,0 +1,35 @@
+\chapter{Respiration}
+
+\section{Fixed}
+
+\begin{equation}
+	R_{h} = GPP \cdot CUE
+\end{equation}
+
+\section{Temperature}
+
+\begin{equation}
+	R_{h} = GPP \cdot CUE \cdot Q_{10}^{(T-10)/10}
+\end{equation}
+
+\section{Temperature and Biomass}
+
+\begin{equation}
+	R_{h} = \sum_{x}^{leaf,wood,root} R_{h,x}
+\end{equation}
+
+\begin{equation}
+	R_{h,leaf} = R_{10} \cdot N_{leaf} \cdot \phi \cdot g(T_{air})
+\end{equation}
+
+\begin{equation}
+	R_{h,wood} = R_{10} \cdot N_{wood} \cdot g(T_{air})
+\end{equation}
+
+\begin{equation}
+	R_{h,root} = R_{10} \cdot N_{root} \cdot \phi \cdot g(T_{soil})
+\end{equation}
+
+\begin{equation}
+	g(T) = \exp^{308.56 \cdot (\frac{1}{56.02} - \frac{1}{T + 46.02})}
+\end{equation}
