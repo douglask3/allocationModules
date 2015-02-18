@@ -1,30 +1,5 @@
-\chapter{Allometric}
+\section{Allometric}
 \label{Allometric}
-
-\section{Nitrogen/Water limitation}
-
-Nitrgen limitation ($N_{lim}$) depends on current shoot N:C ratio ($N:C_{shoot}$) modulated by parameters describing the minimum and ``critial'' N:C ratio ($N:C_{shoot}$ \& $N:C_{shoot,critical}$)
-\begin{equation}
-	N_{lim}=
-	\begin{cases}
-	    0,& \text{if } N:C_{shoot}\le N:C_{shoot,min} \\
-	    1,& \text{if } N:C_{shoot}\ge N:C_{shoot,critical} \\
-	    \dfrac{N:C_{shoot} - n:c_{shoot,min}}{N:C_{shoot,critical} - N:C_{shoot,min}},& \text{otherwise}
-	\end{cases}
-\end{equation}
-
-The daily limitation  ($l$) is a minimum of $N_{lim}$ and fractional root water availablity ($W_{root}$):
-\begin{equation}
-	l = \min (N_{lim}, W_{root})
-\end{equation}
-
-Overall limitation ($L$) is the daily limiattion over the lifespan of roots ($\tau_{roots}$):
-
-\begin{equation}
-	L = \sum^{\tau_{roots}} l
-\end{equation}
-
-\section{Allocation}
 
 \begin{equation}
 	\frac{A_{root}=A_{root,max}*A_{root,min}}{A_{root,min}+(A_{root,max}-A_{root,min})*L}
