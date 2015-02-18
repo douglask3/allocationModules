@@ -20,7 +20,7 @@ The daily limitation  ($l$) is a minimum of $N_{lim}$ and fractional root water 
 Overall limitation ($L$) is the daily limiattion over the lifespan of roots ($\tau_{roots}$):
 
 \begin{equation}
-	L = sum\limits^\tau_{roots} l
+	L = \sum^\tau_{roots} l
 \end{equation}
 
 \subsection{Allocation}
@@ -61,3 +61,52 @@ Allocation to leaves dependant on height. Modification of pipe theory, leaf-to-s
 		    LS_{0} + \dfrac{(LS_{1}-LS_{0})\cdot (H-H_{0})}{H_{1}-H_{0}},& \text{otherwise}
 		\end{cases}
 \end{equation}
+
+Sensitivity parameter characterises how allocation fraction respond when the leaf:sapwood area ratio departs from the target value. If sensitivity close to 0 then the simulated leaf:sapwood area ratio will closely track the target value
+
+\begin{equation}
+	A_{leaf} = 0.5 + 0.5 \cdot \dfrac{(1-LS/LS_{target})}{A_{s}}
+\end{equation}
+
+where $A_{s}$ is a sensativity parameter figure out root allocation given available water \& nutrients hyperbola shape to allocation, this is adjusted below as we aim to maintain a functional balance.
+
+\begin{equation}
+	A_{root} = \dfrac{A_{root,max} \cdot A_{root,min}}{A_{root,min} + (A_{root,max} A_{root,min})*L}
+\end{equation}
+
+calculate imbalance, based on ``biomass''
+
+\begin{equation}
+	\Delta_{miss}=
+	\begin{cases}
+	    1.9,& \text{if } root mass = 0 \\
+	    C_{shoot}/(C_{shoot} \cdot L),& \text{otherwise}
+	\end{cases}
+\end{equation}
+
+If $\Delta_{miss} > 1.0$ 
+\begin{equation}
+	A_{leaf} = \max (A_{leaf,min}, \min (A_{leaf,max}, A_{leaf}^* / \Delta_{miss}))
+\end{equation}
+\begin{equation}
+	A_{root} = A_{root}^* + \max (A_{root,min}, A_{leaf}^* - A_{leaf})
+\end{equation}
+
+If $\Delta_{miss} < 1.0$ 
+\begin{equation}
+	A_{root} = \max (A_{root,min}, \min (A_{root,max},A_{root,max}, A_{root}^* \cdot \Delta_{miss}))
+\end{equation}
+\begin{equation}
+	A_{leaf} = A_{leaf}^* + \max (A_{leaf,max}, \max(0.0, A_{root}^* - A_{root}))
+\end{equation}
+
+
+Allocation to branch dependent on relationship between the stem and branch
+\begin{equation}
+	C_{target,branch} = branch0 \cdot C_{stem}^branch0
+\end{equation}
+
+\begin{equation}
+	A_{branch} = 0.5 + 0.5 \cdot \dfrac{(1-C_{branch}/C_{target,branch})}{A_{s}}
+\end{equation}
+
