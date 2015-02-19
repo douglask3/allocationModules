@@ -33,21 +33,23 @@ ExperimentInfo = c(AMBAVG="AMBAVG.csv",
 ## Variable Information                                                                 ##
 ##########################################################################################
 ## 
+
+productionUnits="'gC '*m^2*' d'^1"
 VarTitleInfo = data.frame(
     row.names   = c('Name'                ,'Units'),
-    NPP         = c("NPP"                 , "gC/m2"),
-    GPP         = c("GPP"                 , "gC/m2"),
-    leafAl      = c("Leaf Allocation"     , "%"),
-    woodAl      = c("Wood Allocation"     , "%"),
-    rootAl      = c("Root Allocation"     , "%"),
-    AMBAVG      = c("Ambient average CO2" ,  ""),
-    ELEVAR      = c("Ambient CO2"         ,  ""),
-    AMBAVG      = c("Elevated average CO2",  ""),
-    AMBVAR      = c("Elevated CO2"        ,  ""),
-    fixed       = c("Fixed"               ,  ""),
-    allometric  = c("Allometric"          ,  ""),
-    maxGPP      = c("Maximise GPP"        ,  ""),
-    maxWOOD     = c("Maximise Wood"       ,  ""))
+    NPP         = c("NPP"                 , productionUnits),
+    GPP         = c("GPP"                 , productionUnits),
+    leafAl      = c("Leaf Allocation"     , "%"            ),
+    woodAl      = c("Wood Allocation"     , "%"            ),
+    rootAl      = c("Root Allocation"     , "%"            ),
+    AMBAVG      = c("Ambient average CO2" ,  ""            ),
+    ELEVAR      = c("Ambient CO2"         ,  ""            ),
+    AMBAVG      = c("Elevated average CO2",  ""            ),
+    AMBVAR      = c("Elevated CO2"        ,  ""            ),
+    fixed       = c("Fixed"               ,  ""            ),
+    allometric  = c("Allometric"          ,  ""            ),
+    maxGPP      = c("Maximise GPP"        ,  ""            ),
+    maxWOOD     = c("Maximise Wood"       ,  ""            ))
     
  
 VarConstruction = list(

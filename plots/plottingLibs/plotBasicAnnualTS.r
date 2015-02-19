@@ -12,7 +12,7 @@ plotBasicAnnualTS <- function(modelIDs,experimentIDs,varIDs,ylab,ratios=NULL,rat
 }
 
 
-setupBaiscAnnualTS <- function(modelIDs,experimentIDs,ratios=NULL,varIDs,name,oma=c(1,1,1,2)) {
+setupBaiscAnnualTS <- function(modelIDs,experimentIDs,ratios=NULL,varIDs,name,oma=c(1,0,1,2)) {
     name=paste(c("figs/",name,modelIDs,varIDs,'.pdf'),collapse="-")
     
     if (is.null(ratios)) nheight=length(modelIDs) else nheight=1
@@ -23,7 +23,7 @@ setupBaiscAnnualTS <- function(modelIDs,experimentIDs,ratios=NULL,varIDs,name,om
     layoutMat=matrix(1:(nheight*nwidth),nwidth,nheight)
     layoutMat=rbind(t(layoutMat),rep(nheight*nwidth+1,nwidth))
     layout(layoutMat,heights=c(rep(1,nheight),0.3))
-    par(mar=c(2,2,1,0),oma=oma)
+    par(mar=c(2,4.5,1,0),oma=oma)
 }
 
 openBasicAnnualTS <- function(modelIDs,experimentIDs,varIDs,ratios=NULL) {
@@ -57,7 +57,7 @@ plotRange <- function(dat,plotOne=FALSE,runningMean=NULL) {
         
  }       
         
-plotBasicAnnualTSVariables <- function (dat,varIDs,cols,ltys,titles,
+plotBasicAnnualTSVariables <- function (dat,varIDs,cols,ltys,titles,ylab,
                                         runningMean=365,plotOne=FALSE,...) {
     plotRange=plotRange(dat,plotOne,runningMean)
 
@@ -65,7 +65,7 @@ plotBasicAnnualTSVariables <- function (dat,varIDs,cols,ltys,titles,
         #c(title,plotNew)  := tail(dat,2)
         xRange=range(sapply(dat,function(i) range(i[1],na.rm=TRUE)))
         
-        if (newPlot) plot(xRange,plotRange,type='n',xaxt='n',...)
+        if (newPlot) plot(xRange,plotRange,type='n',xaxt='n',ylab=parse(text=ylab),...)
         
         plotVariable <- function(dat,lty,col) {
             git   = colnames(dat[[1]])

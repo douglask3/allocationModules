@@ -11,7 +11,7 @@ plotBasicSeasonalTS <- function(modelIDs,experimentIDs,varIDs,ylab,ratios=NULL,r
     addGitRev2plot.dev.off(paste(snameCfg,"plotBasicSeasonalTS",sep="/"))
 }
 
-plotBasicSeasolTSVariables <- function (dat,varIDs,cols,titles,plotOne,...) {
+plotBasicSeasolTSVariables <- function (dat,varIDs,cols,titles,ylab,plotOne,...) {
 
     plotRange=plotRange(dat)
     
@@ -19,7 +19,7 @@ plotBasicSeasolTSVariables <- function (dat,varIDs,cols,titles,plotOne,...) {
         x     = dat[[1]]
         y     = lapply(dat[-1],as.matrix)
         
-        if (plotT) plot(range(x),plotRange,type='n',xaxt='n',...)
+        if (plotT) plot(range(x),plotRange,type='n',xaxt='n',ylab=parse(text=ylab),...)
        
         plotLines <- function(y,col) {
             for (i in 1:ceiling(nrow(y)/2)) {
@@ -31,7 +31,7 @@ plotBasicSeasolTSVariables <- function (dat,varIDs,cols,titles,plotOne,...) {
         }
         mapply(plotLines,y,colss)
         
-        mtext(xlab,side=2,line=3)
+        if (!plotOne) mtext(xlab,side=2,line=4)
         mtext(ulab,side=3)
         if (axisT) axis(at=midmonth,labels=mnthNames,side=1)
         
