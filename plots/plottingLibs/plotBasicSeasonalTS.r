@@ -15,7 +15,7 @@ plotBasicSeasolTSVariables <- function (dat,varIDs,cols,titles,plotOne,...) {
 
     plotRange=plotRange(dat)
     
-    plotVariable <- function(dat,plotT,xlab,ulab,axisT,cols=cols) {
+    plotVariable <- function(dat,plotT,xlab,ulab,axisT,colss=cols) {
         x     = dat[[1]]
         y     = lapply(dat[-1],as.matrix)
         
@@ -29,7 +29,7 @@ plotBasicSeasolTSVariables <- function (dat,varIDs,cols,titles,plotOne,...) {
             }
             lines(x,y[round(nrow(y)/2),],col=col)
         }
-        mapply(plotLines,y,cols)
+        mapply(plotLines,y,colss)
         
         mtext(xlab,side=2,line=3)
         mtext(ulab,side=3)
