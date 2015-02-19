@@ -10,7 +10,7 @@ Tree height ($H$) based on an allometric relationship described in \citet{Causto
 \begin{equation}
 	H = H_{t} * c_{stem}^{h_{t}}
 \end{equation}
-where $c_{stem}$ is the circumerfance of the stem and $H_{t}$ \& $h_{t}$ are allomtric paramters.
+where $c_{stem}$ is the circumference of the stem and $H_{t}$ \& $h_{t}$ are allomtric parameters.
                                 
 Leaf Area Index ($LAI$) to stem sapwood cross-sectional area ($\oslash_{sapwood}$) is assumed to vary between $\oslash_{sapwood,0}$ and $\oslash_{sapwood,1}$ as a linear function of $H$ 
 
@@ -78,8 +78,10 @@ If $\Delta_{miss} < 1.0$
 
 Allocation to branch dependent on relationship between the stem and branch
 \begin{equation}
-	C_{target,branch} = branch0 \cdot C_{stem}^branch0
+	C_{target,branch} = BS_{0} \cdot C_{stem}^BS_{1}
 \end{equation}
+
+where $BS_{0}$ and $BS_{0}$ are allometric parameters.
 
 \begin{equation}
 	A_{branch} = 0.5 + 0.5 \cdot \dfrac{(1-C_{branch}/C_{target,branch})}{A_{s}}

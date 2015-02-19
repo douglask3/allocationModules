@@ -1,11 +1,11 @@
 \section{MaxW}
-Max W works much the same and MaxGPP, but insteead oof optimizing for GPP, it atempts to maximise wood production, and is based on the model descibed by  \citep{McMurtrie2013}. Here the cost function is:
+Max W works much the same and MaxGPP, but instead of optimizing for GPP, it attempts to maximise wood production. This is  based on the model described by  \citep{McMurtrie2013}. For MaxW, the cost function represents carbon production directed to wood:
 
 \begin{equation}
 	\phi(A_{leaf},A_{wood}) = - GPP (GDAY_{d+1}(A_{leaf},A_{wood})) * A_{wood}
 \end{equation}
 
-and represents carbon production directed to wood. Optimal $A_{leaf}$ and $A_{wood}$ are again found by minimising $\phi$:
+Optimal $A_{leaf}$ and $A_{wood}$ are again found by minimising $\phi$:
 
 \begin{equation*}
 A_{leaf,d,optimal} \text{\&} A_{wood,d,optimal}=
@@ -18,7 +18,7 @@ A_{leaf,d,optimal} \text{\&} A_{wood,d,optimal}=
 \end{aligned}
 \end{equation*}
 
- $A_{wood}$ and $A_{leaf}$ are again the average over the past season:
+ daily $A_{wood}$ and $A_{leaf}$ is again the average over past season:
 
 \begin{equation}
 	A_{x}= \sum_{D}^{d=D-N} A_{x,d,optimal}
