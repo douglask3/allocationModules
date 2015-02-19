@@ -1,19 +1,21 @@
 \section{Allometric}
 \label{Allometric}
 
+
+
+
 \begin{equation}
 	\frac{A_{root}=A_{root,max}*A_{root,min}}{A_{root,min}+(A_{root,max}-A_{root,min})*L}
 \end{equation}
 
-Tree height ($H$) based on \citet{Causton1985}:
+Tree height ($H$) based on an allometric relationship described in \citet{Causton1985}:
 
 \begin{equation}
-	H = ? * C_{stem} ^ ht
+	H = H_{t} * c_{stem}^{h_{t}}
 \end{equation}
-self.state.canht = (heighto *self.state.stem**self.params.htpower)
+where $c_{stem}$ is the circumerfance of the stem and $H_{t}$ \& $h_{t}$ are allomtric paramters.
                                 
-Leaf Area Index ($LAI$) to stem sapwood cross-sectional area ($\oslash_{sapwood}$)
-Assume it varies between $\oslash_{sapwood,0}$ and $\oslash_{sapwood,1}$ as a linear function of $H$ 
+Leaf Area Index ($LAI$) to stem sapwood cross-sectional area ($\oslash_{sapwood}$) is assumed to vary between $\oslash_{sapwood,0}$ and $\oslash_{sapwood,1}$ as a linear function of $H$ 
 
 \begin{equation}
 	LS = LAI / \oslash_{sapwood}
@@ -24,8 +26,7 @@ where $\oslash_{sapwood}$ is calculated as:
 \begin{equation}
 	\oslash_{sapwood} = C_{sapwood}/(H * P *C_{dry} )
 \end{equation}
-
-where $P$ is population density and $C_{dry}$ is the carbon fraction of drymass.
+where $C_{sapwood}$ is the total carbon content of sapwood, $P$ is population density and $C_{dry}$ is the carbon fraction of dry mass.
 
 Allocation to leaves dependant on height. Modification of pipe theory, leaf-to-sapwood ratio is not constant above a certain  height, due to hydraulic constraints \citep{Magnani2000,Deckmun2006}
 
@@ -38,20 +39,20 @@ Allocation to leaves dependant on height. Modification of pipe theory, leaf-to-s
 		\end{cases}
 \end{equation}
 
-Sensitivity parameter characterises how allocation fraction respond when the leaf:sapwood area ratio departs from the target value. If sensitivity close to 0 then the simulated leaf:sapwood area ratio will closely track the target value
+Sensitivity parameter ($A_{s}$) characterises how allocation fraction respond when the leaf:sapwood area ratio departs from the target value. If $A_{s}$ is close to 0 then the simulated leaf:sapwood area ratio will closely track the target value
 
 \begin{equation}
 	A_{leaf} = 0.5 + 0.5 \cdot \dfrac{(1-LS/LS_{target})}{A_{s}}
 	\label{AleafAllometric}
 \end{equation}
 
-where $A_{s}$ is a sensativity parameter figure out root allocation given available water \& nutrients hyperbola shape to allocation, this is adjusted below as we aim to maintain a functional balance.
+root allocation depends on available water \& nutrients and is adjusted below as we aim to maintain a functional balance.
 
 \begin{equation}
 	A_{root} = \dfrac{A_{root,max} \cdot A_{root,min}}{A_{root,min} + (A_{root,max} A_{root,min})*L}
 \end{equation}
 
-calculate imbalance, based on ``biomass''
+calculate imbalance, based on ``biomass'' as described by \citet{sitch2003}
 
 \begin{equation}
 	\Delta_{miss}=
