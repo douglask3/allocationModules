@@ -1,9 +1,10 @@
 \section{MaxGPP}
-As with \ref{Allometric} but with \ref{AleafAllometric} replaced with:
+The MaxGPP model follows the allometric model (section \ref{Allometric}), but leaf alloaction (determined in the allocation model by \ref{AleafAllometric}) is istead optimied to produce the maximum carbon production:
 
 \begin{equation}
 	\phi_{leaf}(A_{leaf}) = - GPP (GDAY_{d+1}(A_{leaf}))
 \end{equation}
+Where $GDAY_{d+1}$ reprsents the result of running the model foreward one day for a given value of $A_{leaf}$ and $\phi_{leaf}$ is the cost function to be minimised with respect to $A_{leaf}$, to find the days  ``optimal'' leaf alloction ($A_{leaf,d,optimal}$):
 
 \begin{equation*}
 A_{leaf,d,optimal}=
@@ -15,6 +16,10 @@ A_{leaf,d,optimal}=
 \end{aligned}
 \end{equation*}
 
+The actual leaf allocation iss the the average optimal allocation for the past $n$ days:
+
 \begin{equation}
-	A_{leaf}= \sum_{D}^{d=D-N} A_{leaf,d,optimal}
+	A_{leaf}= \sum_{D}^{d=D-n} A_{leaf,d,optimal}
 \end{equation}
+
+For now, $n$ is set to the one year if evergreen or since the start of this years growing season if deciduous.
