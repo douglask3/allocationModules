@@ -8,6 +8,7 @@ Nitrgen limitation ($N_{lim}$) depends on current shoot N:C ratio ($N:C_{shoot}$
 	    1,& \text{if } N:C_{shoot}\ge N:C_{shoot,critical} \\
 	    \dfrac{N:C_{shoot} - n:c_{shoot,min}}{N:C_{shoot,critical} - N:C_{shoot,min}},& \text{otherwise}
 	\end{cases}
+	\label{equ:lim1}
 \end{equation}
 
 The daily limitation  ($l$) is a minimum of $N_{lim}$ and fractional root water availablity ($W_{root}$):
@@ -19,4 +20,5 @@ Overall limitation ($L$) is the daily limiattion over the lifespan of roots ($\t
 
 \begin{equation}
 	L = \sum^{\tau_{roots}} l
+	\label{equ:limN}
 \end{equation}
