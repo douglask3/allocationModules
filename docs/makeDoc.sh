@@ -13,7 +13,8 @@ do
 done
 
 ## Build docs
-
+rm Info.bbl
+rm Info.aux
 pdflatex Info.tex
 bibtex Info
 pdflatex Info.tex
