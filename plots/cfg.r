@@ -20,7 +20,7 @@ data_dir        = 	"~/Documents/allocationModules/runGday/EucFace/outputs/"
 ModelInfo = data.frame(
     row.names   = c('Name'          ,'filename'),
     fixed       = c("Fixed"         , "D1GDAYEUCFIXED"),
-    allocation  = c("ALLOCATION"    , "D1GDAYEUCALLOMETRIC"),
+    allometric  = c("Allometric"    , "D1GDAYEUCALLOMETRIC"),
     maxGPP      = c("Maximise GPP"  , "D1GDAYEUCMAXIMIZEGPP"),
     maxWOOD     = c("Maximise Wood" , "D1GDAYEUCMAXIMIZEWOOD"))
 
@@ -45,7 +45,7 @@ VarTitleInfo = data.frame(
     AMBAVG      = c("Elevated average CO2",  ""),
     AMBVAR      = c("Elevated CO2"        ,  ""),
     fixed       = c("Fixed"               ,  ""),
-    allocation  = c("Allocation"          ,  ""),
+    allometric  = c("Allometric"          ,  ""),
     maxGPP      = c("Maximise GPP"        ,  ""),
     maxWOOD     = c("Maximise Wood"       ,  ""))
     
@@ -70,7 +70,7 @@ PlottingInformation = data.frame (
     ELEAVG      =  c("transparent"    ,3),
     ELEVAR      =  c("transparent"    ,4),
     fixed       =  c("Black"          ,1),
-    allocation  =  c("Red"            ,1),
+    allometric  =  c("Red"            ,1),
     maxGPP      =  c("Blue"           ,1),
     maxWOOD     =  c("green"          ,1))
 
