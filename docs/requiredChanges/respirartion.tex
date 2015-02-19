@@ -1,34 +1,44 @@
 \section{Respiration}
+The last two allocation models, maximise production and maximise wood, could potentailly be driven by simulated NPP rather than GPP, where NPP is simply represented as GPP minus autotrophic rspirartion ($R_{a}$). However, the original GDAYs $R_{a}$, and therefore NPP, is a constant fraction of GPP. So using NPP would make no difference. In order to properly model net carbon export which would potrtially change under different allocation ccompositions, requires incorperating biomass-dependant $R_{a}$.
 
 \subsection{Fixed}
 
+Original GDAY respiration. $R_{a}$ is a constant fraction of NPP:
+
 \begin{equation}
-	R_{h} = GPP \cdot CUE
+	R_{a} = GPP \cdot  (1 - CUE)
 \end{equation}
 
+where $CUE =$ carbon use efficancy = 0.5.
+
 \subsection{Temperature}
+As an intermediate respirartion model, we incorporated tempurature-dependant respirartion used by \citet{Medlyn2000}
 
 \begin{equation}
-	R_{h} = GPP \cdot CUE \cdot Q_{10}^{(T-10)/10}
+	R_{a} = GPP \cdot CUE \cdot Q_{10}^{(T-10)/10}
 \end{equation}
 
 \subsection{Temperature and Biomass}
+Biomass/biomass type dependant $R-{h}$ is used in LPJ and was taken from \citet{Sitch2003}. Leaf and root respirartion depends on phenology ($\phi$), and there is no repsirarton for leaves when their not out (maked sense). Leaf and wood $R_{a}$ is dependant on air tempurature ($T_{air}$), whereas roots is dependant of soil tempurarure $T_{soil}$)
+
 
 \begin{equation}
-	R_{h} = \sum_{x}^{leaf,wood,root} R_{h,x}
+	R_{a} = \sum_{x}^{leaf,wood,root} R_{h,x}
 \end{equation}
 
 \begin{equation}
-	R_{h,leaf} = R_{10} \cdot N_{leaf} \cdot \phi \cdot g(T_{air})
+	R_{a,leaf} = R_{10} \cdot N_{leaf} \cdot \phi \cdot g(T_{air})
 \end{equation}
 
 \begin{equation}
-	R_{h,wood} = R_{10} \cdot N_{wood} \cdot g(T_{air})
+	R_{a,wood} = R_{10} \cdot N_{wood} \cdot g(T_{air})
 \end{equation}
 
 \begin{equation}
-	R_{h,root} = R_{10} \cdot N_{root} \cdot \phi \cdot g(T_{soil})
+	R_{a,root} = R_{10} \cdot N_{root} \cdot \phi \cdot g(T_{soil})
 \end{equation}
+
+where the parameter $R_{10}$ is the respiration rate on a 10$^\circ$C base, and:
 
 \begin{equation}
 	g(T) = \exp^{308.56 \cdot (\frac{1}{56.02} - \frac{1}{T + 46.02})}
